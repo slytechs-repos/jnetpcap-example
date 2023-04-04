@@ -7,6 +7,12 @@ An important aspect of the API to understand, is that in these examples, the mai
 ### Dependencies
 This example module relies on several optional modules to be included on the `module path`. The base module **jnetpcap** has no other module dependencies, but the module **jnetpcap-pro** is dependent on **core-protocols** module. Further more the examples here also include **web-protocols** module to demonstrate usage of `Http` header class and its features.
 
+The list of all modules needed to run these examples:
+* [**jnetpcap**](https://github.com/slytechs-repos/jnetpcap) module
+* [**jnetpcap-pro**](https://github.com/slytechs-repos/jnetpcap-pro) module (to be released by April 7)
+* [**core-protocols**](https://github.com/slytechs-repos/core-protocols) module (to be released by April 7)
+* [**web-protocols**](https://github.com/slytechs-repos/web-protocols) module (to be released by May 2nd)
+
 > **Note** **jNetPcap API** applies to both **jnetpcap (Apache License)** and **jnetpcap-pro** modules. However the examples will specify when any particular feature is only available in **jnetpcap-pro API**.
 
 ## Offline Packet Capture Examples ([Source Code](https://github.com/slytechs-repos/jnetpcap-examples/tree/main/src/main/java/com/slytechs/jnet/jnetpcap/example/capture))

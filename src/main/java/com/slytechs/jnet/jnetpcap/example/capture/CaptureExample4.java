@@ -36,9 +36,6 @@ import com.slytechs.jnetpcap.pro.PcapPro;
 
 /**
  * Pcap packet capture and reassembly example using jNetPcap.
- * 
- * @author Sly Technologies
- * @author repos@slytechs.com
  */
 public class CaptureExample4 {
 

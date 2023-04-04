@@ -2,7 +2,7 @@
 The examples in this modules are a mixture of [**jnetpcap**](https://github.com/slytechs-repos/jnetpcap) and [**jnetpcap-pro**](https://github.com/slytechs-repos/jnetpcap-pro) API usage. Both modules are free, no cost to use in your projects.
 
 ## Overview
-An important aspect of the API to understand, is that in these examples, the main operative class is the `Pcap` class. It is the starting point for nearly all actions when working with **jnetpcap** API. Additionally, the class `PcapPro` is a subclass of `Pcap` class (ie. `class PcapPro extends Pcap`) and provides additional capabilities in on top of the base `Pcap` API.
+An important aspect of the API to understand, is that in these examples, the main operative class is the `Pcap` class. It is the starting point for nearly all actions when working with **jnetpcap** API. Additionally, the class `PcapPro` is a subclass of `Pcap` class (ie. `class PcapPro extends Pcap`) and provides additional capabilities on top of the base `Pcap` API.
 
 ### Dependencies
 This example module relies on several optional modules to be included on the `module path`. The base module **jnetpcap** has no other module dependencies, but the module **jnetpcap-pro** has a dependency on **core-protocols** module. Further more the examples here also include **web-protocols** module to demonstrate usage of `Http` header class and its features.

@@ -81,6 +81,7 @@ The first `if` statement checks to see if IPv4 header is present in the packet, 
 `Ip4OptRouter` IP option in the IPv4 header. If it is, it is also bound just like any other header. If both conditions pass, we have `ip4` and `router` variables bound to their corresponding portions of the IPv4 header. Then we pretty pring the contents of the `router`, or `ip4` header.
 
 Lastly, we check for `Tcp` header and also printout its contents using a pretty print formatter we set before.
-> **Important!!!** the lifecycle of the headers and packets inside our handler is only to within the handler. Once the example handler returns, the packet and the previously bound headers will be unbound and no longer contain a valid state. If you try to access those object you will likely get an `IllegalStateException`. 
+> **Important!!!** the lifecycle of the headers and packets inside our handler is only to within the handler itself. Once the example handler returns, the packet and the previously bound headers will be unbound and no longer contain a valid state. If you try to access those object you will likely get an `IllegalStateException`. 
+
 > **Note** If you want to copy the packet or the header, you can invoke their `clone()` methods to create a complete duplicate of the data and state.
 ## NOTE!!!! Document still under construction

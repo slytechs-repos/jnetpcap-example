@@ -29,7 +29,10 @@ import org.jnetpcap.util.PcapUtils;
 
 /**
  * Example showing how to capture offline packets and dispatch to a user packet
- * handler of type {@code PcapHandler.OfMemorySegment}.
+ * handler of type {@code PcapHandler.OfMemorySegment}. The example checks the
+ * API version for compatibility, sets a packet filter and dispatches 10 packets
+ * to low level user packet handler with memory pointers to packet header and
+ * data.
  */
 public class CaptureExample3 {
 

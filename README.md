@@ -52,7 +52,7 @@ pcap
 	.enableIpfReassembly(true)
 	.dropReassembledIpFragments(true);
 ```
-The drop reassembled ip fragments command means that all IP fragments will dropped and not dispatched to the user handler. Because we enabled IPF reassembly, we will only receive fully reassembled IP packets, and any fragmented packets will not be passed through.
+The line where we issue, drop reassembled ip fragments command, means that all IP fragments will dropped and not dispatched to the user handler. Because we enabled IPF reassembly, we will only receive fully reassembled IP packets, and any fragmented packets will not be passed through.
 
 Next we allocate various protocol headers. Headers are reusable and they are bound to new packets, one at a time.
 ```java

@@ -25,4 +25,20 @@ There are some commonalities to each example. Here are the basic steps:
 
 To view all of the **capture** examples [click here](https://github.com/slytechs-repos/jnetpcap-examples/tree/main/src/main/java/com/slytechs/jnet/jnetpcap/example/capture).
 
+### **CaptureExample 1** - Simple Packet Capture ([CaptureExample1.java](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnet/jnetpcap/example/capture/CaptureExample1.java))
+Example 1 demonstrates basic usage of a packet capture using the `PcapProHandler.OfPacket` packet handler. This handler type receives packets which have been dissected for protocol headers present in the capture packet. 
+
+```java
+/* Send packets to handler. The generic user parameter can be of any type. */
+pcap.loop(PACKET_COUNT, (String user, Packet packet) -> { // Pro API
+	System.out.printf("%s: %03d: caplen=%-,5d ts=%s%n",
+			user,
+			packet.descriptor().frameNo(),
+			packet.captureLength(),
+			new Timestamp(packet.timestamp(), packet.timestampUnit()));
+
+}, "Example1");
+```
+The handler is a labmda code block with two arguments. First is an opaque generic user object, in this case a string with a simple message. The second is that `Packet` object containing all of the neccessary information to access packet contents including protocol headers.
+
 ## NOTE!!!! Document still under construction

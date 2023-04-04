@@ -58,7 +58,7 @@ public class CaptureExample2 {
 		 * Automatically close Pcap resource when done and checks the client and
 		 * installed runtime API versions to ensure they are compatible.
 		 */
-		try (PcapPro pcap = PcapPro.openOffline(PCAP_FILE)) {
+		try (PcapPro pcap = PcapPro.openOffline(PCAP_FILE)) { // Pro API
 
 			/* Enable Ip Fragment tracking, reassembly and pretty print from toString() */
 			pcap
@@ -69,13 +69,13 @@ public class CaptureExample2 {
 			/* Number of packets to capture */
 			final int PACKET_COUNT = 10;
 
-			/* Create protocol headers and reuse inside the dispatch handler */
+			/* Pro API! Create protocol headers and reuse inside the dispatch handler */
 			final Ip4 ip4 = new Ip4();
 			final Tcp tcp = new Tcp();
 			final Ip4OptRouter router = new Ip4OptRouter();
 
 			/* Capture packets and access protocol headers */
-			pcap.dispatch(PACKET_COUNT, (String user, Packet packet) -> {
+			pcap.dispatch(PACKET_COUNT, (String user, Packet packet) -> { // Pro API
 				// If present, printout ip4 header
 				if (packet.hasHeader(ip4) && ip4.hasExtension(router)) {
 					System.out.println(router);

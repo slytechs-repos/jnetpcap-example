@@ -56,16 +56,16 @@ public class CaptureExample5 {
 
 	/** Example instance */
 	void main() throws PcapException {
-		try (PcapPro pcap = PcapPro.create("en0")) {
+		try (PcapPro pcap = PcapPro.create("en0")) { // Pro API
 			pcap
-					.setPacketFormatter(new PacketFormat())
+					.setPacketFormatter(new PacketFormat()) // Pro API
 					.activate();
 
 			/* Number of packets to capture */
 			final int PACKET_COUNT = 10;
 
 			/* Send packets to handler. The generic user parameter can be of any type. */
-			pcap.dispatch(PACKET_COUNT, this::nextPacket, "Example 3");
+			pcap.dispatch(PACKET_COUNT, this::nextPacket, "Example 3"); // Pro API
 
 		}
 	}

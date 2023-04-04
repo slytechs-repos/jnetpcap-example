@@ -49,9 +49,9 @@ public class CaptureExample4 {
 
 	/** Example instance */
 	public static void main(String[] args) throws PcapException {
-		try (PcapPro pcap = PcapPro.create("en0")) {
+		try (PcapPro pcap = PcapPro.create("en0")) { // Pro API
 
-			/* Set packet descriptor type and pretty print formatter */
+			/* Pro API! Set packet descriptor type and pretty print formatter */
 			pcap
 					.setDescriptorType(PacketDescriptorType.TYPE2)
 					.setPacketFormatter(new PacketFormat())
@@ -60,7 +60,7 @@ public class CaptureExample4 {
 			/* Number of packets to capture */
 			final int PACKET_COUNT = 10;
 
-			pcap.dispatch(PACKET_COUNT, CaptureExample4::nextPacket, "Example4");
+			pcap.dispatch(PACKET_COUNT, CaptureExample4::nextPacket, "Example4"); // Pro API
 		}
 	}
 

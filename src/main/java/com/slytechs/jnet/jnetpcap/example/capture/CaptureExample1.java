@@ -135,13 +135,13 @@ public class CaptureExample1 {
 		final String PCAP_FILE = "pcaps/HTTP.cap";
 
 		/* Automatically close Pcap resource when done */
-		try (PcapPro pcap = PcapPro.openOffline(PCAP_FILE)) {
+		try (PcapPro pcap = PcapPro.openOffline(PCAP_FILE)) { // Pro API
 
 			/* Number of packets to capture */
 			final int PACKET_COUNT = 10;
 
 			/* Send packets to handler. The generic user parameter can be of any type. */
-			pcap.loop(PACKET_COUNT, (String user, Packet packet) -> {
+			pcap.loop(PACKET_COUNT, (String user, Packet packet) -> { // Pro API
 				System.out.printf("%s: %03d: caplen=%-,5d ts=%s%n",
 						user,
 						packet.descriptor().frameNo(),

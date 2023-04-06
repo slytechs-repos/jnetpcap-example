@@ -63,8 +63,10 @@ public class CaptureExample2 {
 			/* Enable Ip Fragment tracking, reassembly and pretty print from toString() */
 			pcap
 					.setPacketFormatter(new PacketFormat())
-					.enableIpfReassembly(true)
-					.dropReassembledIpFragments(true);
+//					.enableIpfReassembly(true)
+//					.dropReassembledIpFragments(true)
+
+			;
 
 			/* Number of packets to capture */
 			final int PACKET_COUNT = 10;

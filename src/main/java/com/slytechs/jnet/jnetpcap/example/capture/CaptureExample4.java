@@ -23,6 +23,7 @@
  */
 package com.slytechs.jnet.jnetpcap.example.capture;
 
+import org.jnetpcap.Pcap;
 import org.jnetpcap.PcapException;
 
 import com.slytechs.jnet.protocol.constants.PacketDescriptorType;
@@ -46,7 +47,8 @@ public class CaptureExample4 {
 
 	/** Example instance */
 	public static void main(String[] args) throws PcapException {
-		try (PcapPro pcap = PcapPro.create("en0")) { // Pro API
+		var deviceList = Pcap.findAllDevs();
+		try (PcapPro pcap = PcapPro.create(deviceList.get(0))) { // Pro API
 
 			/* Pro API! Set packet descriptor type and pretty print formatter */
 			pcap

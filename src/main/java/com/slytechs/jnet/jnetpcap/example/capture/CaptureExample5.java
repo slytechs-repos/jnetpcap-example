@@ -23,6 +23,7 @@
  */
 package com.slytechs.jnet.jnetpcap.example.capture;
 
+import org.jnetpcap.Pcap;
 import org.jnetpcap.PcapException;
 
 import com.slytechs.jnet.protocol.core.Ip4;
@@ -57,7 +58,8 @@ public class CaptureExample5 {
 
 	/** Example instance */
 	void main() throws PcapException {
-		try (PcapPro pcap = PcapPro.create("en0")) { // Pro API
+		var deviceList = Pcap.findAllDevs();
+		try (PcapPro pcap = PcapPro.create(deviceList.get(0))) { // Pro API
 			pcap
 					.setPacketFormatter(new PacketFormat()) // Pro API
 					.activate();

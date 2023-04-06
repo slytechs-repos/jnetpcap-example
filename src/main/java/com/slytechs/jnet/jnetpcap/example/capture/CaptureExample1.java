@@ -61,5 +61,4 @@ public class CaptureExample1 {
 			}, "Example1");
 		}
 	}
-
 }

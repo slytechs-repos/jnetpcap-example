@@ -26,11 +26,11 @@ package com.slytechs.jnet.jnetpcap.example.capture;
 import org.jnetpcap.Pcap;
 import org.jnetpcap.PcapException;
 
+import com.slytechs.jnet.protocol.Packet;
+import com.slytechs.jnet.protocol.core.Ip4;
 import com.slytechs.jnet.protocol.core.Tcp;
 import com.slytechs.jnet.protocol.core.constants.PacketDescriptorType;
-import com.slytechs.jnet.protocol.core.ip.Ip4;
-import com.slytechs.jnet.protocol.packet.Packet;
-import com.slytechs.jnet.protocol.packet.meta.PacketFormat;
+import com.slytechs.jnet.protocol.meta.PacketFormat;
 import com.slytechs.jnet.protocol.web.Html;
 import com.slytechs.jnet.protocol.web.Http;
 import com.slytechs.jnetpcap.pro.PcapPro;

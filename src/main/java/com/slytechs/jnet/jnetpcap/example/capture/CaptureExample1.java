@@ -19,7 +19,7 @@ package com.slytechs.jnet.jnetpcap.example.capture;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnet.protocol.packet.Packet;
+import com.slytechs.jnet.protocol.Packet;
 import com.slytechs.jnet.runtime.time.Timestamp;
 import com.slytechs.jnetpcap.pro.PcapPro;
 

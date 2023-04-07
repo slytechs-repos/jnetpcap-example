@@ -20,9 +20,9 @@ package com.slytechs.jnet.jnetpcap.example.capture;
 import org.jnetpcap.Pcap;
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnet.protocol.core.Ip4;
-import com.slytechs.jnet.protocol.core.Ip4Option.Ip4OptRouter;
 import com.slytechs.jnet.protocol.core.Tcp;
+import com.slytechs.jnet.protocol.core.ip.Ip4;
+import com.slytechs.jnet.protocol.core.ip.Ip4Option.Ip4OptRouter;
 import com.slytechs.jnet.protocol.packet.Packet;
 import com.slytechs.jnet.protocol.packet.meta.PacketFormat;
 import com.slytechs.jnetpcap.pro.PcapPro;

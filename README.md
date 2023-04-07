@@ -15,6 +15,10 @@ The list of all modules needed to run these examples:
 * [**core-protocols**](https://github.com/slytechs-repos/core-protocols) module (to be released by April 7)
 * [**web-protocols**](https://github.com/slytechs-repos/web-protocols) module (to be released by May 2nd)
 
+### Download Now
+Download the [**Latest jnetpcap-examples release**](https://github.com/slytechs-repos/jnetpcap-examples/releases/tag/v0.9-alpha.1) which contains all
+of the required JARs to run these examples.
+
 > **Note** **jNetPcap API** applies to both **jnetpcap (Apache License)** and **jnetpcap-pro** modules. However the examples will specify when any particular feature is only available in **jnetpcap-pro API**.
 
 ## Offline Packet Capture Examples ([Source Code](https://github.com/slytechs-repos/jnetpcap-examples/tree/main/src/main/java/com/slytechs/jnet/jnetpcap/example/capture))

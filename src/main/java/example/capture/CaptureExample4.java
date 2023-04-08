@@ -21,19 +21,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.slytechs.jnet.jnetpcap.example.capture;
+package example.capture;
 
 import org.jnetpcap.Pcap;
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnet.protocol.Packet;
-import com.slytechs.jnet.protocol.core.Ip4;
-import com.slytechs.jnet.protocol.core.Tcp;
-import com.slytechs.jnet.protocol.core.constants.PacketDescriptorType;
-import com.slytechs.jnet.protocol.meta.PacketFormat;
-import com.slytechs.jnet.protocol.web.Html;
-import com.slytechs.jnet.protocol.web.Http;
 import com.slytechs.jnetpcap.pro.PcapPro;
+import com.slytechs.protocol.Packet;
+import com.slytechs.protocol.meta.PacketFormat;
+import com.slytechs.protocol.pack.core.Ip4;
+import com.slytechs.protocol.pack.core.Tcp;
+import com.slytechs.protocol.pack.core.constants.PacketDescriptorType;
+import com.slytechs.protocol.pack.web.Html;
+import com.slytechs.protocol.pack.web.Http;
 
 /**
  * Pcap packet capture and reassembly example using jNetPcap.

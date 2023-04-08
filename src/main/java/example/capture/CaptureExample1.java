@@ -15,13 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.slytechs.jnet.jnetpcap.example.capture;
+package example.capture;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnet.protocol.Packet;
-import com.slytechs.jnet.runtime.time.Timestamp;
 import com.slytechs.jnetpcap.pro.PcapPro;
+import com.slytechs.protocol.Packet;
+import com.slytechs.protocol.runtime.time.Timestamp;
 
 /**
  * Example showing how to capture offline packets and dispatch to a user packet

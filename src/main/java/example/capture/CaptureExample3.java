@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.slytechs.jnet.jnetpcap.example.capture;
+package example.capture;
 
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;

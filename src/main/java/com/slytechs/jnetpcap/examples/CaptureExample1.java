@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package example.capture;
+package com.slytechs.jnetpcap.examples;
 
 import org.jnetpcap.PcapException;
 

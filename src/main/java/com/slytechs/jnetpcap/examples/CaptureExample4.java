@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package example.capture;
+package com.slytechs.jnetpcap.examples;
 
 import org.jnetpcap.Pcap;
 import org.jnetpcap.PcapException;

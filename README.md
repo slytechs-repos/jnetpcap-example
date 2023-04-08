@@ -36,7 +36,7 @@ There are some commonalities to each example. Here are the basic steps:
 
 To view all of the **capture** examples [click here](https://github.com/slytechs-repos/jnetpcap-examples/tree/main/src/main/java/com/slytechs/jnet/jnetpcap/example/capture).
 
-### **CaptureExample 1** - Simple Packet Capture ([Example1_CapturePacketsAndPrint.java](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnetpcap/examples/Example1_CapturePacketsAndPrintHeaders.java))
+### **Example 1** - Simple Packet Capture ([Example1](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnetpcap/examples/Example1_CapturePacketsAndPrintHeaders.java))
 Example 1 demonstrates basic usage of a packet capture using the `PcapProHandler.OfPacket` packet handler. This handler type receives packets which have been dissected for protocol headers present in the capture packet. 
 
 ```java
@@ -52,7 +52,7 @@ pcap.loop(PACKET_COUNT, (String user, Packet packet) -> { // Pro API
 ```
 The handler is a lambda code block with two arguments. First is an opaque generic user object, in this case a string with a simple message. The second is that `Packet` object containing all of the neccessary information to access packet contents including protocol headers.
 
-### **CaptureExample 2** - IPF Reassembly and Protocol Headers ([Example2_PacketDescriptorTimestamp.java](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnetpcap/examples/Example2_PacketDescriptorTimestamp.java)
+### **Example 2** - IPF Reassembly and Protocol Headers ([Example2](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnetpcap/examples/Example2_PacketDescriptorTimestamp.java)
 Example 2 is a bit more advanced, but very simple to setup. The example enabled IP fragment reassembly and sets up a pretty packet formatter for when a call to `Packet.toString()` is called.
 
 First the example enabled IPF reassembly and packet formatter:

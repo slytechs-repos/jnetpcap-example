@@ -36,23 +36,8 @@ There are some commonalities to each example. Here are the basic steps:
 
 To view all of the **capture** examples [click here](https://github.com/slytechs-repos/jnetpcap-examples/tree/main/src/main/java/com/slytechs/jnet/jnetpcap/example/capture).
 
-### **Example 1** - Simple Packet Capture ([Example1](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnetpcap/examples/Example1_CapturePacketsAndPrintHeaders.java))
-Example 1 demonstrates basic usage of a packet capture using the `PcapProHandler.OfPacket` packet handler. This handler type receives packets which have been dissected for protocol headers present in the capture packet. 
 
-```java
-/* Send packets to handler. The generic user parameter can be of any type. */
-pcap.loop(PACKET_COUNT, (String user, Packet packet) -> { // Pro API
-	System.out.printf("%s: %03d: caplen=%-,5d ts=%s%n",
-			user,
-			packet.descriptor().frameNo(),
-			packet.captureLength(),
-			new Timestamp(packet.timestamp(), packet.timestampUnit()));
-
-}, "Example1");
-```
-The handler is a lambda code block with two arguments. First is an opaque generic user object, in this case a string with a simple message. The second is that `Packet` object containing all of the neccessary information to access packet contents including protocol headers.
-
-### **Example 2** - IPF Reassembly and Protocol Headers ([Example2](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnetpcap/examples/Example2_PacketDescriptorTimestamp.java)
+### **Example 1** - IPF Reassembly and Protocol Headers ([Example1](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnetpcap/examples/Example2_PacketDescriptorTimestamp.java)
 Example 2 is a bit more advanced, but very simple to setup. The example enabled IP fragment reassembly and sets up a pretty packet formatter for when a call to `Packet.toString()` is called.
 
 First the example enabled IPF reassembly and packet formatter:
@@ -93,6 +78,22 @@ The first `if` statement checks to see if IPv4 header is present in the packet, 
 
 Lastly, we check for `Tcp` header and also printout its contents using a pretty print formatter we set before.
 > **Important!!!** the lifecycle of the headers and packets inside our handler is only to within the handler itself. Once the example handler returns, the packet and the previously bound headers will be unbound and no longer contain a valid state. If you try to access those object you will likely get an `IllegalStateException`. 
+> 
+### **Example 2** - Simple Packet Capture ([Example2](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnetpcap/examples/Example1_CapturePacketsAndPrintHeaders.java))
+Example 1 demonstrates basic usage of a packet capture using the `PcapProHandler.OfPacket` packet handler. This handler type receives packets which have been dissected for protocol headers present in the capture packet. 
+
+```java
+/* Send packets to handler. The generic user parameter can be of any type. */
+pcap.loop(PACKET_COUNT, (String user, Packet packet) -> { // Pro API
+	System.out.printf("%s: %03d: caplen=%-,5d ts=%s%n",
+			user,
+			packet.descriptor().frameNo(),
+			packet.captureLength(),
+			new Timestamp(packet.timestamp(), packet.timestampUnit()));
+
+}, "Example1");
+```
+The handler is a lambda code block with two arguments. First is an opaque generic user object, in this case a string with a simple message. The second is that `Packet` object containing all of the neccessary information to access packet contents including protocol headers.
 
 > **Note** If you want to copy the packet or the header, you can invoke their `clone()` methods to create a complete duplicate of the data and state.
 ## NOTE!!!! Document Still Under Construction - Check Back Soon for More!

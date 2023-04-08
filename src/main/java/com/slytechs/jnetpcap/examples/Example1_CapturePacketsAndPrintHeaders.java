@@ -24,8 +24,8 @@ import com.slytechs.jnetpcap.pro.PcapPro;
 import com.slytechs.protocol.Packet;
 import com.slytechs.protocol.meta.PacketFormat;
 import com.slytechs.protocol.pack.core.Ip4;
+import com.slytechs.protocol.pack.core.Ip4Option.Ip4RouterOption;
 import com.slytechs.protocol.pack.core.Tcp;
-import com.slytechs.protocol.pack.core.Ip4Option.Ip4OptRouter;
 
 /**
  * Example showing how to capture offline packets and dispatch to a user packet
@@ -34,7 +34,7 @@ import com.slytechs.protocol.pack.core.Ip4Option.Ip4OptRouter;
  * delivered to the user handler as packets and also drop the original
  * reassembled fragments. We are only interested in non-fragment IP datagrams.
  */
-public class CaptureExample2 {
+public class Example1_CapturePacketsAndPrintHeaders {
 
 	/**
 	 * Bootstrap the example.
@@ -43,7 +43,7 @@ public class CaptureExample2 {
 	 * @throws PcapException any pcap exceptions
 	 */
 	public static void main(String[] args) throws PcapException {
-		new CaptureExample2().main();
+		new Example1_CapturePacketsAndPrintHeaders().main();
 	}
 
 	/** Example instance */
@@ -60,13 +60,8 @@ public class CaptureExample2 {
 		 */
 		try (PcapPro pcap = PcapPro.openOffline(PCAP_FILE)) { // Pro API
 
-			/* Enable Ip Fragment tracking, reassembly and pretty print from toString() */
-			pcap
-					.setPacketFormatter(new PacketFormat())
-//					.enableIpfReassembly(true)
-//					.dropReassembledIpFragments(true)
-
-			;
+			/* Set a pretty print formatter to toString() method */
+			pcap.setPacketFormatter(new PacketFormat());
 
 			/* Number of packets to capture */
 			final int PACKET_COUNT = 10;
@@ -74,19 +69,23 @@ public class CaptureExample2 {
 			/* Pro API! Create protocol headers and reuse inside the dispatch handler */
 			final Ip4 ip4 = new Ip4();
 			final Tcp tcp = new Tcp();
-			final Ip4OptRouter router = new Ip4OptRouter();
+			final Ip4RouterOption router = new Ip4RouterOption();
 
 			/* Capture packets and access protocol headers */
 			pcap.dispatch(PACKET_COUNT, (String user, Packet packet) -> { // Pro API
+
 				// If present, printout ip4 header
-				if (packet.hasHeader(ip4) && ip4.hasExtension(router)) {
+				if (packet.hasHeader(ip4))
+					System.out.println(ip4);
+
+				// If present, printout IPv4.router header extension
+				if (packet.hasHeader(ip4) && ip4.hasExtension(router))
 					System.out.println(router);
-					// Or System.out.println(ip4)
-				}
 
 				// If present, printout tcp header
 				if (packet.hasHeader(tcp))
 					System.out.println(tcp);
+
 			}, "Example2 - Hello World");
 		}
 	}

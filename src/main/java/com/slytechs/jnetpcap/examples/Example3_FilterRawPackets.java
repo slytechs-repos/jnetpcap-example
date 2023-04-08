@@ -34,7 +34,7 @@ import org.jnetpcap.util.PcapUtils;
  * to low level user packet handler with memory pointers to packet header and
  * data.
  */
-public class CaptureExample3 {
+public class Example3_FilterRawPackets {
 
 	/**
 	 * Bootstrap the example.
@@ -43,7 +43,7 @@ public class CaptureExample3 {
 	 * @throws PcapException any pcap exceptions
 	 */
 	public static void main(String[] args) throws PcapException {
-		new CaptureExample3().main();
+		new Example3_FilterRawPackets().main();
 	}
 
 	/** Example instance */

@@ -38,7 +38,7 @@ import com.slytechs.protocol.pack.web.Http;
 /**
  * Pcap packet capture and reassembly example using jNetPcap.
  */
-public class CaptureExample4 {
+public class Example4_LiveCaptureAndPrint {
 
 	private static final Ip4 ip4 = new Ip4();
 	private static final Tcp tcp = new Tcp();
@@ -59,7 +59,7 @@ public class CaptureExample4 {
 			/* Number of packets to capture */
 			final int PACKET_COUNT = 10;
 
-			pcap.dispatch(PACKET_COUNT, CaptureExample4::nextPacket, "Example4"); // Pro API
+			pcap.dispatch(PACKET_COUNT, Example4_LiveCaptureAndPrint::nextPacket, "Example4"); // Pro API
 		}
 	}
 

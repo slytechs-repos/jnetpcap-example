@@ -37,7 +37,7 @@ There are some commonalities to each example. Here are the basic steps:
 To view all of the **capture** examples [click here](https://github.com/slytechs-repos/jnetpcap-examples/tree/main/src/main/java/com/slytechs/jnet/jnetpcap/example/capture).
 
 
-### **Example 1** - IPF Reassembly and Protocol Headers ([Example1](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnetpcap/examples/Example2_PacketDescriptorTimestamp.java)
+### [Example1](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnetpcap/examples/Example2_PacketDescriptorTimestamp.java) - Capture Offline and Pretty Print Packet
 The example sets up an offline packet capture, assigns a new packet formatter refered to as "pretty print", which is used to generate formatted constents of packets and headers.
 
 First, we setup a new packet formatter for ``Packet.toString()`` and ``Header.toString()`` outputs.
@@ -79,8 +79,8 @@ The next line is similar and checks for IPv4 header again but this time if found
 Lastly, we check for `Tcp` header and also printout its contents using a pretty print formatter we set before.
 > **Important!!!** the lifecycle of the headers and packets inside our handler is only to within the handler itself. Once the example handler returns, the packet and the previously bound headers will be unbound and no longer contain a valid state. If you try to access those object you will likely get an `IllegalStateException`. 
 > 
-### **Example 2** - Simple Packet Capture ([Example2](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnetpcap/examples/Example1_CapturePacketsAndPrintHeaders.java))
-Example 1 demonstrates basic usage of a packet capture using the `PcapProHandler.OfPacket` packet handler. This handler type receives packets which have been dissected for protocol headers present in the capture packet. 
+### [Example2](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnetpcap/examples/Example1_CapturePacketsAndPrintHeaders.java) - Simple Packet Capture 
+Example 2 demonstrates basic usage of a packet capture using the `PcapProHandler.OfPacket` packet handler. This handler type receives packets which have been dissected for protocol headers present in the capture packet. 
 
 ```java
 /* Send packets to handler. The generic user parameter can be of any type. */

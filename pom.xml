@@ -1,8 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.slytechs.jnet.runtime</groupId>
 	<artifactId>jnetpcap-examples</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>0.9-SNAPSHOT</version>
 	<name>jNetPcap Examples</name>
 	<description>Code examples of jNetPcap (OS) and jNetPcap Pro usage</description>
 	<url>https://www.jnetpcap.org</url>
@@ -35,26 +37,32 @@
 		</developer>
 	</developers>
 	<dependencies>
-		<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+		<!--
+		https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
 		<dependency>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-compiler-plugin</artifactId>
 			<version>3.10.1</version>
 		</dependency>
 		<dependency>
-			<groupId>com.slytechs.jnet.runtime</groupId>
+			<groupId>com.slytechs.jnet</groupId>
 			<artifactId>jnetpcap</artifactId>
-			<version>2.0.0</version>
+			<version>2.0.0-alpha.2</version>
 		</dependency>
 		<dependency>
-			<groupId>com.slytechs.jnet.runtime</groupId>
+			<groupId>com.slytechs.jnet</groupId>
 			<artifactId>jnetpcap-pro</artifactId>
-			<version>1.0.0</version>
+			<version>0.9-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.slytechs.jnet.runtime</groupId>
-			<artifactId>base-protocol</artifactId>
-			<version>1.0.0</version>
+			<groupId>com.slytechs.jnet</groupId>
+			<artifactId>core-protocols</artifactId>
+			<version>0.9-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.slytechs.jnet</groupId>
+			<artifactId>web-protocols</artifactId>
+			<version>0.9-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -88,11 +96,12 @@
 				<version>3.2.0</version>
 				<configuration>
 					<doctitle>Public API for ${project.name} ${project.version}</doctitle>
-					<windowtitle>Public API for ${project.name} ${project.version}</windowtitle>
+					<windowtitle>Public API for ${project.name}
+						${project.version}</windowtitle>
 					<encoding>${java.encoding}</encoding>
 					<source>${jdk.version}</source>
 					<additionalOptions>
-								${java.preview}
+						${java.preview}
 					</additionalOptions>
 					<show>public</show>
 				</configuration>
@@ -115,13 +124,16 @@
 				<version>3.2.0</version>
 				<configuration>
 					<doctitle>Public API for ${project.name} ${project.version}</doctitle>
-					<windowtitle>Public API for ${project.name} ${project.version}</windowtitle>
-					<testDoctitle>Test API for ${project.name} ${project.version}</testDoctitle>
-					<testWindowtitle>Test API for ${project.name} ${project.version}</testWindowtitle>
+					<windowtitle>Public API for ${project.name}
+						${project.version}</windowtitle>
+					<testDoctitle>Test API for ${project.name}
+						${project.version}</testDoctitle>
+					<testWindowtitle>Test API for ${project.name}
+						${project.version}</testWindowtitle>
 					<encoding>${java.encoding}</encoding>
 					<source>${jdk.version}</source>
 					<additionalOptions>
-								${java.preview}
+						${java.preview}
 					</additionalOptions>
 				</configuration>
 				<reportSets>
@@ -164,7 +176,8 @@
 			</activation>
 			<build></build>
 			<properties>
-				<java.library.path.libpcap.osx>-Djava.library.path=/usr/local/Cellar/libpcap/${libpcap.version}/lib</java.library.path.libpcap.osx>
+				<java.library.path.libpcap.osx>
+					-Djava.library.path=/usr/local/Cellar/libpcap/${libpcap.version}/lib</java.library.path.libpcap.osx>
 				<java.library.path.libpcap>${java.library.path.libpcap.osx}</java.library.path.libpcap>
 				<excludeGroups>windows-api|linux-api</excludeGroups>
 			</properties>
@@ -181,7 +194,8 @@
 				</file>
 			</activation>
 			<properties>
-				<java.library.path.libpcap.osx>-Djava.library.path=/opt/local/lib</java.library.path.libpcap.osx>
+				<java.library.path.libpcap.osx>
+					-Djava.library.path=/opt/local/lib</java.library.path.libpcap.osx>
 				<java.library.path.libpcap>${java.library.path.libpcap.osx}</java.library.path.libpcap>
 				<excludeGroups>windows-api|linux-api</excludeGroups>
 			</properties>
@@ -195,7 +209,8 @@
 				</os>
 			</activation>
 			<properties>
-				<java.library.path.libpcap.linux>-Djava.library.path=/usr/lib/x86-linux-gnu</java.library.path.libpcap.linux>
+				<java.library.path.libpcap.linux>
+					-Djava.library.path=/usr/lib/x86-linux-gnu</java.library.path.libpcap.linux>
 				<java.library.path.libpcap>${java.library.path.libpcap.linux}</java.library.path.libpcap>
 				<excludeGroups>windows-api</excludeGroups>
 			</properties>
@@ -209,7 +224,8 @@
 				</os>
 			</activation>
 			<properties>
-				<java.library.path.libpcap.linux64>-Djava.library.path=/usr/lib/x86_64-linux-gnu</java.library.path.libpcap.linux64>
+				<java.library.path.libpcap.linux64>
+					-Djava.library.path=/usr/lib/x86_64-linux-gnu</java.library.path.libpcap.linux64>
 				<java.library.path.libpcap>${java.library.path.libpcap.linux64}</java.library.path.libpcap>
 				<excludeGroups>windows-api</excludeGroups>
 			</properties>
@@ -223,7 +239,8 @@
 				</os>
 			</activation>
 			<properties>
-				<java.library.path.libpcap.linux64>-Djava.library.path=/usr/lib/x86_64-linux-gnu</java.library.path.libpcap.linux64>
+				<java.library.path.libpcap.linux64>
+					-Djava.library.path=/usr/lib/x86_64-linux-gnu</java.library.path.libpcap.linux64>
 				<java.library.path.libpcap>${java.library.path.libpcap.linux64}</java.library.path.libpcap>
 				<excludeGroups>windows-api</excludeGroups>
 			</properties>
@@ -237,8 +254,10 @@
 				</os>
 			</activation>
 			<properties>
-				<java.library.path.libpcap.windows64>-Djava.library.path="C:\\Windows\\SysWOW64"</java.library.path.libpcap.windows64>
-				<java.library.path.libpcap>${java.library.path.libpcap.windows64}</java.library.path.libpcap>
+				<java.library.path.libpcap.windows64>
+					-Djava.library.path="C:\\Windows\\SysWOW64"</java.library.path.libpcap.windows64>
+				<java.library.path.libpcap>
+					${java.library.path.libpcap.windows64}</java.library.path.libpcap>
 				<excludeGroups>unix-api|linux-api</excludeGroups>
 			</properties>
 		</profile>
@@ -251,7 +270,8 @@
 				</os>
 			</activation>
 			<properties>
-				<java.library.path.libpcap.windows>-Djava.library.path="C:\\Windows\\Program Files"</java.library.path.libpcap.windows>
+				<java.library.path.libpcap.windows>-Djava.library.path="C:\\Windows\\Program
+					Files"</java.library.path.libpcap.windows>
 				<java.library.path.libpcap>${java.library.path.libpcap.windows}</java.library.path.libpcap>
 				<excludeGroups>unix-api|linux-api</excludeGroups>
 			</properties>
@@ -263,7 +283,8 @@
 	</issueManagement>
 	<scm>
 		<connection>scm:git:git://github.com/slytechs-repos/jnetpcap.git</connection>
-		<developerConnection>scm:git:ssh:git://github.com/slytechs-repos/jnetpcap-examples.git</developerConnection>
+		<developerConnection>
+			scm:git:ssh:git://github.com/slytechs-repos/jnetpcap-examples.git</developerConnection>
 		<url>https://github.com/slytechs-repos/jnetpcap</url>
 	</scm>
 	<distributionManagement>

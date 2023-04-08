@@ -96,4 +96,3 @@ pcap.loop(PACKET_COUNT, (String user, Packet packet) -> { // Pro API
 The handler is a lambda code block with two arguments. First is an opaque generic user object, in this case a string with a simple message. The second is that `Packet` object containing all of the neccessary information to access packet contents including protocol headers.
 
 > **Note** If you want to copy the packet or the header, you can invoke their `clone()` methods to create a complete duplicate of the data and state.
-## NOTE!!!! Document Still Under Construction - Check Back Soon for More!

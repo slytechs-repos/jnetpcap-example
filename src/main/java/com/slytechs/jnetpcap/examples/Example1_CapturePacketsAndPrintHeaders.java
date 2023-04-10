@@ -23,6 +23,7 @@ import org.jnetpcap.PcapException;
 import com.slytechs.jnetpcap.pro.PcapPro;
 import com.slytechs.protocol.Packet;
 import com.slytechs.protocol.meta.PacketFormat;
+import com.slytechs.protocol.pack.core.Ethernet;
 import com.slytechs.protocol.pack.core.Ip4;
 import com.slytechs.protocol.pack.core.Ip4Option.Ip4RouterOption;
 import com.slytechs.protocol.pack.core.Tcp;
@@ -67,6 +68,7 @@ public class Example1_CapturePacketsAndPrintHeaders {
 			final int PACKET_COUNT = 10;
 
 			/* Pro API! Create protocol headers and reuse inside the dispatch handler */
+			final Ethernet ethernet = new Ethernet();
 			final Ip4 ip4 = new Ip4();
 			final Tcp tcp = new Tcp();
 			final Ip4RouterOption router = new Ip4RouterOption();
@@ -74,6 +76,10 @@ public class Example1_CapturePacketsAndPrintHeaders {
 			/* Capture packets and access protocol headers */
 			pcap.dispatch(PACKET_COUNT, (String user, Packet packet) -> { // Pro API
 
+				// If present, printout ethernet header
+				if (packet.hasHeader(ethernet))
+					System.out.println(ethernet);
+				
 				// If present, printout ip4 header
 				if (packet.hasHeader(ip4))
 					System.out.println(ip4);

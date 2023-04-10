@@ -21,7 +21,7 @@ of the required JARs to run these examples.
 
 > **Note** **jNetPcap API** applies to both **jnetpcap (Apache License)** and **jnetpcap-pro** modules. However the examples will specify when any particular feature is only available in **jnetpcap-pro API**.
 
-## Offline Packet Capture Examples ([Source Code](https://github.com/slytechs-repos/jnetpcap-examples/tree/main/src/main/java/com/slytechs/jnet/jnetpcap/example/capture))
+## Offline Packet Capture Examples ([Source Code](https://github.com/slytechs-repos/jnetpcap-examples/tree/main/src/main/java/com/slytechs/jnetpcap/examples))
 The examples in this section relate to various ways of capturing packets using **jNetPcap** APIs from offline files or pcap files (both standard and NG file formats).
 
 There are some commonalities to each example. Here are the basic steps:
@@ -36,8 +36,51 @@ There are some commonalities to each example. Here are the basic steps:
 
 To view all of the **capture** examples [click here](https://github.com/slytechs-repos/jnetpcap-examples/tree/main/src/main/java/com/slytechs/jnet/jnetpcap/example/capture).
 
-### **CaptureExample 1** - Simple Packet Capture ([CaptureExample1.java](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnet/jnetpcap/example/capture/CaptureExample1.java))
-Example 1 demonstrates basic usage of a packet capture using the `PcapProHandler.OfPacket` packet handler. This handler type receives packets which have been dissected for protocol headers present in the capture packet. 
+
+### [Example1](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnetpcap/examples/Example2_PacketDescriptorTimestamp.java) - Capture Offline and Pretty Print Packet
+The example sets up an offline packet capture, assigns a new packet formatter refered to as "pretty print", which is used to generate formatted constents of packets and headers.
+
+First, we setup a new packet formatter for ``Packet.toString()`` and ``Header.toString()`` outputs.
+```java
+/* Set a pretty print formatter to toString() method */
+pcap.setPacketFormatter(new PacketFormat());
+```
+Next we allocate various protocol headers. Headers are reusable and they are bound to new packets, one at a time.
+```java
+/* Pro API! Create protocol headers and reuse inside the dispatch handler */
+final Ip4 ip4 = new Ip4();
+final Tcp tcp = new Tcp();
+final Ip4RouterOption router = new Ip4RouterOption();
+```
+
+Our handler is a lambda block code, that receives fully reassembled IP packets. It is also common practice to use a lambda method reference or implementing the handler interface ``OfPacket``.
+```java
+/* Capture packets and access protocol headers */
+pcap.dispatch(PACKET_COUNT, (String user, Packet packet) -> { // Pro API
+
+	// If present, printout ip4 header
+	if (packet.hasHeader(ip4))
+		System.out.println(ip4);
+
+	// If present, printout IPv4.router header extension
+	if (packet.hasHeader(ip4) && ip4.hasExtension(router))
+		System.out.println(router);
+
+	// If present, printout tcp header
+	if (packet.hasHeader(tcp))
+		System.out.println(tcp);
+
+}, "Example2 - Hello World");
+```
+
+The first `if` statement checks to see if IPv4 header is present in the packet, if it is, the `Ip4` instance is bound to the memory spanning the contents of IPv4 header. If IPv4 header is found, it is bound and next line prints out the formatted output to console.
+The next line is similar and checks for IPv4 header again but this time if found it also checks if IPv4 header contains the IPv4.router option. We can use another header specific for this option `Ip4RouterOption`. If it is, it is also bound just like any other header. If both conditions pass, we have `ip4` and `router` variables bound to their corresponding portions of the IPv4 header. Then we pretty pring the contents of the `router`, or `ip4` header.
+
+Lastly, we check for `Tcp` header and also printout its contents using a pretty print formatter we set before.
+> **Important!!!** the lifecycle of the headers and packets inside our handler is only to within the handler itself. Once the example handler returns, the packet and the previously bound headers will be unbound and no longer contain a valid state. If you try to access those object you will likely get an `IllegalStateException`. 
+> 
+### [Example2](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnetpcap/examples/Example1_CapturePacketsAndPrintHeaders.java) - Simple Packet Capture 
+Example 2 demonstrates basic usage of a packet capture using the `PcapProHandler.OfPacket` packet handler. This handler type receives packets which have been dissected for protocol headers present in the capture packet. 
 
 ```java
 /* Send packets to handler. The generic user parameter can be of any type. */
@@ -52,47 +95,4 @@ pcap.loop(PACKET_COUNT, (String user, Packet packet) -> { // Pro API
 ```
 The handler is a lambda code block with two arguments. First is an opaque generic user object, in this case a string with a simple message. The second is that `Packet` object containing all of the neccessary information to access packet contents including protocol headers.
 
-### **CaptureExample 2** - IPF Reassembly and Protocol Headers ([CaptureExample2.java](https://github.com/slytechs-repos/jnetpcap-examples/blob/main/src/main/java/com/slytechs/jnet/jnetpcap/example/capture/CaptureExample2.java))
-Example 2 is a bit more advanced, but very simple to setup. The example enabled IP fragment reassembly and sets up a pretty packet formatter for when a call to `Packet.toString()` is called.
-
-First the example enabled IPF reassembly and packet formatter:
-```java
-/* Enable Ip Fragment tracking, reassembly and pretty print from toString() */
-pcap
-	.setPacketFormatter(new PacketFormat())
-	.enableIpfReassembly(true)
-	.dropReassembledIpFragments(true);
-```
-The line where we issue, drop reassembled ip fragments command, means that all IP fragments will dropped and not dispatched to the user handler. Because we enabled IPF reassembly, we will only receive fully reassembled IP packets, and any fragmented packets will not be passed through.
-
-Next we allocate various protocol headers. Headers are reusable and they are bound to new packets, one at a time.
-```java
-/* Pro API! Create protocol headers and reuse inside the dispatch handler */
-final Ip4 ip4 = new Ip4();
-final Tcp tcp = new Tcp();
-final Ip4OptRouter router = new Ip4OptRouter();
-```
-
-Our handler is once again a lambda block code, that receives fully reassembled IP packets.
-```java
-/* Capture packets and access protocol headers */
-pcap.dispatch(PACKET_COUNT, (String user, Packet packet) -> { // Pro API
-	// If present, printout ip4 header
-	if (packet.hasHeader(ip4) && ip4.hasExtension(router)) {
-		System.out.println(router);
-		// Or System.out.println(ip4)
-	}
-
-	// If present, printout tcp header
-	if (packet.hasHeader(tcp))
-		System.out.println(tcp);
-}, "Example2 - Hello World");
-```
-The first `if` statement checks to see if IPv4 header is present in the packet, if it is, the `Ip4` instance is bound to the memory spanning the contents of IPv4 header. The addition `&&` checks to see if there is a specific
-`Ip4OptRouter` IP option in the IPv4 header. If it is, it is also bound just like any other header. If both conditions pass, we have `ip4` and `router` variables bound to their corresponding portions of the IPv4 header. Then we pretty pring the contents of the `router`, or `ip4` header.
-
-Lastly, we check for `Tcp` header and also printout its contents using a pretty print formatter we set before.
-> **Important!!!** the lifecycle of the headers and packets inside our handler is only to within the handler itself. Once the example handler returns, the packet and the previously bound headers will be unbound and no longer contain a valid state. If you try to access those object you will likely get an `IllegalStateException`. 
-
 > **Note** If you want to copy the packet or the header, you can invoke their `clone()` methods to create a complete duplicate of the data and state.
-## NOTE!!!! Document Still Under Construction - Check Back Soon for More!

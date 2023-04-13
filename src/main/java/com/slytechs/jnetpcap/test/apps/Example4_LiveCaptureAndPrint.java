@@ -21,10 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.slytechs.jnetpcap.examples;
+package com.slytechs.jnetpcap.test.apps;
+
+import java.util.List;
 
 import org.jnetpcap.Pcap;
 import org.jnetpcap.PcapException;
+import org.jnetpcap.PcapIf;
 
 import com.slytechs.jnetpcap.pro.PcapPro;
 import com.slytechs.protocol.Packet;
@@ -34,6 +37,7 @@ import com.slytechs.protocol.pack.core.Tcp;
 import com.slytechs.protocol.pack.core.constants.PacketDescriptorType;
 import com.slytechs.protocol.pack.web.Html;
 import com.slytechs.protocol.pack.web.Http;
+import com.slytechs.protocol.runtime.util.MemoryUnit;
 
 /**
  * Pcap packet capture and reassembly example using jNetPcap.
@@ -47,19 +51,26 @@ public class Example4_LiveCaptureAndPrint {
 
 	/** Example instance */
 	public static void main(String[] args) throws PcapException {
-		var deviceList = Pcap.findAllDevs();
-		try (PcapPro pcap = PcapPro.create(deviceList.get(0))) { // Pro API
+
+		List<PcapIf> deviceList = Pcap.findAllDevs();
+		PcapIf device = deviceList.get(0);
+
+		System.out.println("Opening device '%s'".formatted(device.name()));
+
+		try (PcapPro pcap = PcapPro.create(device)) { // Pro API
 
 			/* Pro API! Set packet descriptor type and pretty print formatter */
 			pcap
 					.setDescriptorType(PacketDescriptorType.TYPE2)
 					.setPacketFormatter(new PacketFormat())
+					.setBufferSize(MemoryUnit.KILOBYTES.toIntBytes(4))
+					.setNonBlock(true)
 					.activate();
 
 			/* Number of packets to capture */
-			final int PACKET_COUNT = 10;
+			final int PACKET_COUNT = 1;
 
-			pcap.dispatch(PACKET_COUNT, Example4_LiveCaptureAndPrint::nextPacket, "Example4"); // Pro API
+			pcap.loop(PACKET_COUNT, Example4_LiveCaptureAndPrint::nextPacket, "Example4"); // Pro API
 		}
 	}
 

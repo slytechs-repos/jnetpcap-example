@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.slytechs.jnetpcap.test.apps;
+package com.slytechs.jnetpcap.examples;
 
 import org.jnetpcap.PcapException;
 

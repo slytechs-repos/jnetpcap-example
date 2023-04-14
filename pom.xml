@@ -52,17 +52,17 @@
 		<dependency>
 			<groupId>com.slytechs.jnet</groupId>
 			<artifactId>jnetpcap-pro</artifactId>
-			<version>0.9-SNAPSHOT</version>
+			<version>0.9</version>
 		</dependency>
 		<dependency>
 			<groupId>com.slytechs.jnet</groupId>
 			<artifactId>core-protocols</artifactId>
-			<version>0.9-SNAPSHOT</version>
+			<version>0.9</version>
 		</dependency>
 		<dependency>
 			<groupId>com.slytechs.jnet</groupId>
 			<artifactId>web-protocols</artifactId>
-			<version>0.9-SNAPSHOT</version>
+			<version>0.9</version>
 		</dependency>
 	</dependencies>
 	<build>

@@ -17,13 +17,11 @@
  */
 package com.slytechs.jnetpcap.examples;
 
-import java.util.Arrays;
-
 import org.jnetpcap.PcapException;
 
 import com.slytechs.jnetpcap.pro.PcapPro;
-import com.slytechs.protocol.descriptor.IpfFragment;
-import com.slytechs.protocol.pack.core.Ip4;
+import com.slytechs.protocol.Packet;
+import com.slytechs.protocol.descriptor.IpfReassembly;
 import com.slytechs.protocol.pack.core.constants.IpfDescriptorType;
 import com.slytechs.protocol.runtime.util.CountUnit;
 import com.slytechs.protocol.runtime.util.Detail;
@@ -42,44 +40,38 @@ public class Example5_IpFragmentReassembly {
 
 	/** Main example */
 	void main() throws PcapException {
-		final String IP_FRAGMENTED_FILE = "pcaps/ip-frags.pcapng";
+		final String IP_FRAGMENTED_FILE = "pcaps/ip-frags2.pcapng";
 
-		try (PcapPro pcap = PcapPro.openOffline(IP_FRAGMENTED_FILE)) {
+		try (PcapPro pcapPro = PcapPro.openOffline(IP_FRAGMENTED_FILE)) {
 
 			/* Enable IP fragmentation reassembly and use many IPF options */
-			pcap
-					.enableIpf(true)
-					.enableIpfReassembly(true)
-					.enableIpfTracking(true)
-					.enableIpfPassthroughFragments(false)
-					.enableIpfPassthroughComplete(true)
-					.enableIpfAttachComplete(true)
-					.enableIpfAttachIncomplete(true)
-					.enableIpfPassthroughFragments(true)
-					.enableIpfPassthroughComplete(true)
-					.enableIpfPassthroughIncomplete(true)
-					.setIpfTimeoutOnLast(false) // Otherwise on timeout
-					.setIpfBufferSize(1, MemoryUnit.MEGABYTES)
-					.setIpfTableSize(16, CountUnit.KILO)
-					.setIpfMaxFragmentCount(16)
-					.setIpfTimeoutMilli(1200)
-					.setIpfMaxDgramSize(64, MemoryUnit.KILOBYTES)
-					.useIpfPacketTimesource()
-					.activateIpf(); // Or Pcap.activate() if using Pcap.create(...)
+			pcapPro
+					.enableIpf(true) // Enables both IPF reassembly and tracking
+					.enableIpfReassembly(true) // Default, but this is how you disable
+					.enableIpfTracking(true) // Default, but this is how you disable
+					.enableIpfAttachComplete(true) // Attach only complete dgrams to last IPF
+					.enableIpfAttachIncomplete(true) // Attach incomplete dgrams as well to last IPF
+					.enableIpfFragments(true) // Pass through original IP fragments
+					.enableIpfPassComplete(true) // Pass through new reassembled dgrams
+					.enableIpfIncomplete(true) // Pass through new incomplete dgrams
+					.setIpfTimeoutOnLast(true) // Otherwise only timeout on duration
+					.setIpfBufferSize(1, MemoryUnit.MEGABYTES) // Total reassembly buffer size
+					.setIpfTableSize(16, CountUnit.KILO) // How many hash table entries
+					.setIpfMaxFragmentCount(16) // Max number of IP fragments per hash entry
+					.setIpfTimeoutMilli(1200) // Timeout in system or packet time for incomplete dgrams
+					.setIpfMaxDgramSize(64, MemoryUnit.KILOBYTES) // Max reassembled IP dgram size
+					.useIpfPacketTimesource() // Or System timesource
+			;
 
-			final Ip4 ip4 = new Ip4();
+			pcapPro.activateIpf(); // Or Pcap.activate() if using Pcap.create(...)
 
-			pcap.dispatch(0, (u, p) -> {
-				IpfFragment ipf = p.descriptor(IpfDescriptorType.IPF_FRAG);
-				long frameNo = p.descriptor().frameNo();
+			pcapPro.dispatch((Packet packet) -> {
+				IpfReassembly reassemblyDesc = packet.descriptor(IpfDescriptorType.IPF_REASSEMBLY);
 
-//				System.out.println(p);
-				System.out.printf("%s%n", ipf.toString(Detail.LOW));
+				if (reassemblyDesc != null)
+					System.out.println(reassemblyDesc.toString(Detail.HIGH));
 
-				if (p.hasHeader(ip4) && ip4.isTrackingReassembly())
-					System.out.println(Arrays.asList(ip4.reassembledFragmentIndexes()));
-
-			}, null);
+			});
 		}
 	}
 }

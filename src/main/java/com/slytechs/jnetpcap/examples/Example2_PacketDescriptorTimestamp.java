@@ -58,7 +58,7 @@ public class Example2_PacketDescriptorTimestamp {
 						packet.captureLength(),
 						new Timestamp(packet.timestamp(), packet.timestampUnit()));
 
-			}, "Example1");
+			}, "Example2");
 		}
 	}
 }

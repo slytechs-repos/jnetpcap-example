@@ -78,8 +78,6 @@ public class Example1_CapturePacketsAndPrintHeaders {
 			/* Capture packets and access protocol headers */
 			pcap.dispatch(PACKET_COUNT, (String user, Packet packet) -> { // Pro API
 				
-				System.out.println(packet.descriptor());
-
 				// If present, printout ethernet header
 				if (packet.hasHeader(ethernet))
 					System.out.println(ethernet);
@@ -93,10 +91,13 @@ public class Example1_CapturePacketsAndPrintHeaders {
 					System.out.println(router);
 
 				// If present, printout tcp header
-				if (packet.hasHeader(tcp))
+				if (packet.hasHeader(tcp)) {
+					System.out.printf("[%s] - ", tcp.flagsFormatted());
+					System.out.println(tcp.flagsAsString());
 					System.out.println(tcp);
+				}
 
-			}, "Example2 - Hello World");
+			}, "Example1 - Hello World");
 		}
 	}
 }

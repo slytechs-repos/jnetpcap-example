@@ -19,9 +19,12 @@ package com.slytechs.jnetpcap.examples;
 
 import org.jnetpcap.PcapException;
 
+import com.slytechs.jnetpcap.pro.IpfReassembler;
+import com.slytechs.jnetpcap.pro.PacketPlayer;
 import com.slytechs.jnetpcap.pro.PcapPro;
 import com.slytechs.protocol.Packet;
 import com.slytechs.protocol.descriptor.IpfReassembly;
+import com.slytechs.protocol.meta.PacketFormat;
 import com.slytechs.protocol.pack.core.constants.IpfDescriptorType;
 import com.slytechs.protocol.runtime.util.CountUnit;
 import com.slytechs.protocol.runtime.util.Detail;
@@ -40,38 +43,79 @@ public class Example5_IpFragmentReassembly {
 
 	/** Main example */
 	void main() throws PcapException {
-		final String IP_FRAGMENTED_FILE = "pcaps/ip-frags2.pcapng";
+		final String IP_FRAGMENTED_FILE = "pcaps/IPv4-ipf2.pcapng";
+		final String LAN_FILE = "pcaps/LAN-1.pcapng";
+		final String IP6_FILE = "pcaps/sr-header.pcap";
 
+//		try (PcapPro pcapPro = PcapPro.openOffline(IP6_FILE)) {
+//		try (PcapPro pcapPro = PcapPro.openOffline(LAN_FILE)) {
 		try (PcapPro pcapPro = PcapPro.openOffline(IP_FRAGMENTED_FILE)) {
 
-			/* Enable IP fragmentation reassembly and use many IPF options */
-			pcapPro
-					.enableIpf(true) // Enables both IPF reassembly and tracking
-					.enableIpfReassembly(true) // Default, but this is how you disable
-					.enableIpfTracking(true) // Default, but this is how you disable
-					.enableIpfAttachComplete(true) // Attach only complete dgrams to last IPF
-					.enableIpfAttachIncomplete(true) // Attach incomplete dgrams as well to last IPF
-					.enableIpfFragments(true) // Pass through original IP fragments
-					.enableIpfPassComplete(true) // Pass through new reassembled dgrams
-					.enableIpfIncomplete(true) // Pass through new incomplete dgrams
-					.setIpfTimeoutOnLast(true) // Otherwise only timeout on duration
-					.setIpfBufferSize(1, MemoryUnit.MEGABYTES) // Total reassembly buffer size
-					.setIpfTableSize(16, CountUnit.KILO) // How many hash table entries
-					.setIpfMaxFragmentCount(16) // Max number of IP fragments per hash entry
-					.setIpfTimeoutMilli(1200) // Timeout in system or packet time for incomplete dgrams
-					.setIpfMaxDgramSize(64, MemoryUnit.KILOBYTES) // Max reassembled IP dgram size
-					.useIpfPacketTimesource() // Or System timesource
-			;
+			pcapPro.install(PacketPlayer::new)
+					.enableIf(pcapPro.getPcapType()::isOffline)
+					.preserveIfg(true) // Preserve inter-frame-gap
+					.syncTimestamp(true) // Sync timestamp to first frame, otherwise sync to current time
+					.play(1); // 1 = preserve original inter-frame-gap, otherwise adjust it accordingly
 
-			pcapPro.activateIpf(); // Or Pcap.activate() if using Pcap.create(...)
+			/* Enable IP fragmentation reassembly and use many IPF options */
+			pcapPro.install(IpfReassembler::new)
+					.enable(true) // Enables both IPF reassembly and tracking
+					.enableReassembly(true) // Default, but this is how you disable
+					.enableTracking(true) // Default, but this is how you disable
+					.enablePassthrough(true) // Pass through original IP fragments
+					.enableAttachComplete(true) // Attach only complete dgrams to last IPF
+					.enableAttachIncomplete(true) // Attach incomplete dgrams as well to last IPF
+					.enableSend(true) // Enable sending new IP datagrams in packet stream
+					.enableSendComplete(true) // Send new reassembled dgrams
+					.enableSendIncomplete(true) // Send new incomplete dgrams
+					.setTimeoutOnLast(true) // Otherwise only timeout on duration
+					.setBufferSize(9, MemoryUnit.MEGABYTES) // Total reassembly buffer size
+					.setTableSize(1, CountUnit.KILO) // How many hash table entries
+					.setTableMaxFragmentCount(32) // Max number of IP fragments per hash entry
+					.setTimeoutMilli(1200) // Timeout in system or packet time for incomplete dgrams
+					.setMaxDgramSize(9, MemoryUnit.KILOBYTES) // Max reassembled IP dgram size
+					.usePacketTimesource(); // vs System timesource
+
+			pcapPro
+//					.uninstallAll()
+					.setPacketFormatter(new PacketFormat())
+					.activate();
 
 			pcapPro.dispatch((Packet packet) -> {
 				IpfReassembly reassemblyDesc = packet.descriptor(IpfDescriptorType.IPF_REASSEMBLY);
 
-				if (reassemblyDesc != null)
-					System.out.println(reassemblyDesc.toString(Detail.HIGH));
+//				System.out.println(packet.toString(Detail.LOW));
+
+//				if (reassemblyDesc != null)
+//					System.out.println(reassemblyDesc.toString(Detail.HIGH));
+
+				if (packet.descriptor().frameNo() == 7)
+					System.out.println(packet.toString(Detail.MEDIUM)); // Full pretty formatting by default
 
 			});
 		}
+	}
+
+	/** Main example */
+	void mainCutPasteReadyCode() throws PcapException {
+
+		try (PcapPro pcap = PcapPro.openOffline("IPv4-ipf.pcapng")) {
+
+			/*
+			 * Enable IP Fragment (IPF) reassembly and activate offline capture
+			 */
+			pcap.enableIpf(true);
+			pcap.activate();
+
+			/*
+			 * Display reassembled packets
+			 * 
+			 * Java method reference equivalent to lamda expression:
+			 * 
+			 * (Packet packet) -> System.out.println(packet)
+			 */
+			pcap.dispatch(System.out::println);
+		}
+
 	}
 }

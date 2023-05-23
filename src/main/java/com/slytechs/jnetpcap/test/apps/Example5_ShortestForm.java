@@ -20,61 +20,34 @@ package com.slytechs.jnetpcap.test.apps;
 import org.jnetpcap.PcapException;
 
 import com.slytechs.jnetpcap.pro.PcapPro;
-import com.slytechs.protocol.Packet;
-import com.slytechs.protocol.meta.PacketFormat;
+import com.slytechs.protocol.pack.Pack;
 import com.slytechs.protocol.pack.core.Ip4;
 import com.slytechs.protocol.pack.core.Ip4Option.Ip4RouterOption;
-import com.slytechs.protocol.runtime.util.Detail;
 
 /**
  * @author Sly Technologies Inc
  * @author repos@slytechs.com
  *
  */
-public class CaptureVariedTraffic {
+public class Example5_ShortestForm {
 	private final String PCAP_FILE = "pcaps/varied-traffic-capture-lan.pcapng";
 	final Ip4 ip4 = new Ip4();
 	final Ip4RouterOption router = new Ip4RouterOption();
 	final StringBuilder out = new StringBuilder();
 
 	public static void main(String[] args) throws PcapException {
-		new CaptureVariedTraffic().main();
+		new Example5_ShortestForm().main();
 	}
 
 	void main() throws PcapException {
+		
+		Pack.loadAllDetectedPacks();
+		Pack.listAllDeclaredPacks().forEach(System.out::println);
 
 		try (var pcap = PcapPro.openOffline(PCAP_FILE)) {
-
-//			pcap.setPacketFormatter(new PacketFormat());
-
-			int FRAME_NO = 400;
-//			pcap.loop(FRAME_NO + 1, this::nextPacket, FRAME_NO);
-			pcap.loop(0, System.out::println);
+//			pcap.loop(0, System.out::println);
 		}
 
-	}
-
-	private void nextPacket(int frameNo, Packet packet) {
-		PacketFormat format = packet.getFormatter();
-		out.setLength(0);
-
-//		if (frameNo != packet.descriptor().frameNo)
-//			return;
-
-//		System.out.printf("----------- %4d ------------%n", packet.descriptor().frameNo);
-//		System.out.println(packet.descriptor());
-//		System.out.printf("----------- %4d ------------%n", packet.descriptor().frameNo);
-
-//		System.out.println(HexStrings.toHexDump(packet.descriptor().buffer()));
-
-		format.formatPacket(packet, out, Detail.HIGH);
-
-		if (packet.hasHeader(ip4) && ip4.hasExtension(router)) {
-			out.setLength(0);
-			out.append("#%d: ".formatted(packet.descriptor().frameNo()));
-			format.formatHeader(router, out, Detail.HIGH);
-			System.out.print(out);
-		}
 	}
 
 }

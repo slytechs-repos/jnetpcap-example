@@ -63,7 +63,7 @@ public class Example4_LiveCaptureAndPrint {
 			pcap
 					.setDescriptorType(PacketDescriptorType.TYPE2)
 					.setPacketFormatter(new PacketFormat())
-					.setBufferSize(MemoryUnit.KILOBYTES.toIntBytes(4))
+					.setBufferSize(MemoryUnit.KILOBYTES.toBytesAsInt(4))
 					.setNonBlock(true)
 					.activate();
 

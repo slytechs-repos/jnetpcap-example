@@ -20,22 +20,32 @@ package com.slytechs.jnetpcap.examples;
 import org.jnetpcap.PcapException;
 
 import com.slytechs.jnetpcap.pro.PcapPro;
+import com.slytechs.protocol.runtime.util.Detail;
 
 /**
  * @author Sly Technologies Inc
  * @author repos@slytechs.com
  */
 public class Example6_smallest_footprint {
-	private final String PCAP_FILE = "pcaps/LAN-1.pcapng";
+	final String LAN_FILE = "pcaps/LAN-1.pcapng";
 
+	/** Bootstrap the example */
 	public static void main(String[] args) throws PcapException {
 		new Example6_smallest_footprint().main();
 	}
 
+	/**
+	 * Shortest example possible.
+	 *
+	 * @throws PcapException the pcap exception
+	 */
 	void main() throws PcapException {
 
-		try (var pcap = PcapPro.openOffline("capture.pcapng")) {
-			pcap.dispatch(System.out::println);
+		try (var pcap = PcapPro.openOffline("pcaps/IPv4-ipf.pcapng")) {
+//		try (var pcap = PcapPro.openOffline(LAN_FILE)) {
+//			pcap.enableIpf(true).activate();
+//			pcap.setFilter(pcap.compile("arp", true));
+			pcap.dispatch(packet -> System.out.println(packet.toString(Detail.HIGH)));
 		}
 
 	}

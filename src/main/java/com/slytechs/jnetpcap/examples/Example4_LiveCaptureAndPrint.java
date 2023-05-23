@@ -57,7 +57,7 @@ public class Example4_LiveCaptureAndPrint {
 			pcap
 					.setDescriptorType(PacketDescriptorType.TYPE2)
 					.setPacketFormatter(new PacketFormat())
-					.setBufferSize(MemoryUnit.KILOBYTES.toBytesAsInt(4))
+					.setBufferSize(4, MemoryUnit.KILOBYTES)
 					.setNonBlock(true)
 					.activate();
 
@@ -71,21 +71,20 @@ public class Example4_LiveCaptureAndPrint {
 	/* Out packet handler */
 	private static void nextPacket(String user, Packet packet) {
 
-//		if (packet.hasHeader(ip4))
-//			System.out.println(ip4);
-//
-//		if (packet.hasHeader(tcp))
-//			System.out.println(tcp);
-//
-//		if (packet.hasHeader(http))
-//			System.out.println(http);
+		if (packet.hasHeader(ip4))
+			System.out.println(ip4);
 
-//		if (packet.hasHeader(http))
-//			System.out.println(http);
+		if (packet.hasHeader(tcp))
+			System.out.println(tcp);
+
+		if (packet.hasHeader(http))
+			System.out.println(http);
+
+		if (packet.hasHeader(http))
+			System.out.println(http);
 
 		if (packet.hasHeader(html))
 			System.out.println(html);
 
-		System.out.println(packet);
 	}
 }

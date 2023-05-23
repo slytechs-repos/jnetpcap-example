@@ -33,8 +33,22 @@ import com.slytechs.protocol.runtime.util.MemoryUnit;
 /**
  * The example shows how to use PcapPro's IPv4 and IPv6 fragmentation reassembly
  * feature.
+ * 
+ *  * <pre>
+ * struct pack_record_s {
+ * 	uint32_t
+ * 		ordinal:4,  // Index within the protocol pack
+ *      base:4
+ * 		pack:4,     // Protocol pack unique number
+ * 		size:11,    // (Optional) Size of the protocol header (in units of 32-bits)
+ * 		offset:11;  // (Optional) Offset into the packet (in units of 8-bit bytes)
+ * }
+ * </pre>
  */
 public class Example5_IpFragmentReassembly {
+	
+	/**                      OFFSET    SIZE        PACK BASE ORD */
+	static final int W32 = 0b111111111_11111111111_1111_1111_1111;
 
 	/** Bootstrap the example */
 	public static void main(String[] args) throws PcapException {
@@ -43,7 +57,8 @@ public class Example5_IpFragmentReassembly {
 
 	/** Main example */
 	void main() throws PcapException {
-		final String IP_FRAGMENTED_FILE = "pcaps/IPv4-ipf2.pcapng";
+		final String IP_FRAGMENTED_FILE = "pcaps/IPv4-ipf.pcapng";
+//		final String IP_FRAGMENTED_FILE = "pcaps/IPv4-ipf2.pcapng";
 		final String LAN_FILE = "pcaps/LAN-1.pcapng";
 		final String IP6_FILE = "pcaps/sr-header.pcap";
 
@@ -84,14 +99,17 @@ public class Example5_IpFragmentReassembly {
 			pcapPro.dispatch((Packet packet) -> {
 				IpfReassembly reassemblyDesc = packet.descriptor(IpfDescriptorType.IPF_REASSEMBLY);
 
-//				System.out.println(packet.toString(Detail.LOW));
+//				System.out.println(packet.toString(Detail.HIGH));
 
 //				if (reassemblyDesc != null)
 //					System.out.println(reassemblyDesc.toString(Detail.HIGH));
 
-				if (packet.descriptor().frameNo() == 7)
-					System.out.println(packet.toString(Detail.MEDIUM)); // Full pretty formatting by default
+				if (packet.descriptor().frameNo() == 8)
+					System.out.println(packet.toString(Detail.HIGH)); // Full pretty formatting by default
+				
+//				System.out.println(packet.peekHeader(new Icmp4()));
 
+//				System.out.println(packet.descriptor().toString(Detail.HIGH));
 			});
 		}
 	}

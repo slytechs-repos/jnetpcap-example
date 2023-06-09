@@ -20,6 +20,11 @@ package com.slytechs.jnetpcap.examples;
 import org.jnetpcap.PcapException;
 
 import com.slytechs.jnetpcap.pro.PcapPro;
+import com.slytechs.protocol.pack.core.Icmp;
+import com.slytechs.protocol.pack.core.Icmp4;
+import com.slytechs.protocol.pack.core.Icmp4Echo;
+import com.slytechs.protocol.pack.core.Ip;
+import com.slytechs.protocol.pack.core.Ip4;
 import com.slytechs.protocol.runtime.util.Detail;
 
 /**
@@ -45,7 +50,35 @@ public class Example6_smallest_footprint {
 //		try (var pcap = PcapPro.openOffline(LAN_FILE)) {
 //			pcap.enableIpf(true).activate();
 //			pcap.setFilter(pcap.compile("arp", true));
-			pcap.dispatch(packet -> System.out.println(packet.toString(Detail.HIGH)));
+//			pcap.dispatch(packet -> System.out.println(packet.toString(Detail.HIGH)));
+
+			Ip ip = new Ip();
+			Ip4 ip4 = new Ip4();
+			Icmp icmp = new Icmp();
+			Icmp4 icmp4 = new Icmp4();
+			Icmp4Echo icmp4Echo = new Icmp4Echo();
+
+			pcap.dispatch(packet -> {
+
+				System.out.println(packet.descriptor().toString(Detail.HIGH));
+
+				if (packet.hasHeader(ip))
+					System.out.println(ip.toString(Detail.HIGH));
+
+				if (packet.hasHeader(ip4))
+					System.out.println(ip4);
+
+				if (packet.hasHeader(icmp))
+					System.out.println(icmp);
+
+				if (packet.hasHeader(icmp4))
+					System.out.println(icmp4);
+
+				if (packet.hasHeader(icmp4Echo))
+					System.out.println(icmp4Echo);
+				
+				System.out.println(packet);
+			});
 		}
 
 	}

@@ -47,9 +47,6 @@ import com.slytechs.protocol.runtime.util.MemoryUnit;
  */
 public class Example5_IpFragmentReassembly {
 	
-	/**                      OFFSET    SIZE        PACK BASE ORD */
-	static final int W32 = 0b111111111_11111111111_1111_1111_1111;
-
 	/** Bootstrap the example */
 	public static void main(String[] args) throws PcapException {
 		new Example5_IpFragmentReassembly().main();

@@ -22,7 +22,7 @@ import org.jnetpcap.PcapException;
 import com.slytechs.jnetpcap.pro.PcapPro;
 import com.slytechs.protocol.pack.Pack;
 import com.slytechs.protocol.pack.core.Ip4;
-import com.slytechs.protocol.pack.core.Ip4Option.Ip4RouterOption;
+import com.slytechs.protocol.pack.core.Ip4OptRouterAlert;
 
 /**
  * @author Sly Technologies Inc
@@ -32,7 +32,7 @@ import com.slytechs.protocol.pack.core.Ip4Option.Ip4RouterOption;
 public class Example5_ShortestForm {
 	private final String PCAP_FILE = "pcaps/varied-traffic-capture-lan.pcapng";
 	final Ip4 ip4 = new Ip4();
-	final Ip4RouterOption router = new Ip4RouterOption();
+	final Ip4OptRouterAlert router = new Ip4OptRouterAlert();
 	final StringBuilder out = new StringBuilder();
 
 	public static void main(String[] args) throws PcapException {

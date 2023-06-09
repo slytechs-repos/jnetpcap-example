@@ -25,7 +25,7 @@ import com.slytechs.protocol.Packet;
 import com.slytechs.protocol.meta.PacketFormat;
 import com.slytechs.protocol.pack.core.Ethernet;
 import com.slytechs.protocol.pack.core.Ip4;
-import com.slytechs.protocol.pack.core.Ip4Option.Ip4RouterOption;
+import com.slytechs.protocol.pack.core.Ip4OptRouterAlert;
 import com.slytechs.protocol.pack.core.Tcp;
 
 /**
@@ -71,7 +71,7 @@ public class Example1_CapturePacketsAndPrintHeaders {
 			final Ethernet ethernet = new Ethernet();
 			final Ip4 ip4 = new Ip4();
 			final Tcp tcp = new Tcp();
-			final Ip4RouterOption router = new Ip4RouterOption();
+			final Ip4OptRouterAlert router = new Ip4OptRouterAlert();
 
 			/* Capture packets and access protocol headers */
 			pcap.dispatch(PACKET_COUNT, (String user, Packet packet) -> { // Pro API

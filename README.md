@@ -15,6 +15,9 @@ The list of all modules needed to run these examples:
 * [**core-protocols**](https://github.com/slytechs-repos/core-protocols) module (to be released by April 7)
 * [**web-protocols**](https://github.com/slytechs-repos/web-protocols) module (to be released by May 2nd)
 
+### Notes for developers on branches, JDK versions and software releases
+To enable support for JDK 19, 20 and 21, a special JDK versioning has been implemented. Please see [notes section](https://github.com/slytechs-repos/slytechs-repos/wiki/9.-Notes) for more information.
+
 ### Download Now
 Download the [**Latest jnetpcap-examples release**](https://github.com/slytechs-repos/jnetpcap-examples/releases/tag/v0.9-alpha.1) which contains all
 of the required JARs to run these examples.

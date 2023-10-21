@@ -15,7 +15,7 @@ The list of all modules needed to run these examples:
 * [**core-protocols**](https://github.com/slytechs-repos/core-protocols) module (to be released by April 7)
 * [**web-protocols**](https://github.com/slytechs-repos/web-protocols) module (to be released by May 2nd)
 
-### Notes for developers on branches, JDK versions and software releases
+### Notes for developers using JDK 19, 20 and 21
 To enable support for JDK 19, 20 and 21, a special JDK versioning has been implemented. Please see [notes section](https://github.com/slytechs-repos/slytechs-repos/wiki/9.-Notes) for more information.
 
 ### Download Now

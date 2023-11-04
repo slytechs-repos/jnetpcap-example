@@ -25,7 +25,7 @@ import com.slytechs.protocol.Packet;
 import com.slytechs.protocol.meta.PacketFormat;
 import com.slytechs.protocol.pack.core.Ethernet;
 import com.slytechs.protocol.pack.core.Ip4;
-import com.slytechs.protocol.pack.core.Ip4OptRouterAlert;
+import com.slytechs.protocol.pack.core.Ip4tRouterAlertOption;
 import com.slytechs.protocol.pack.core.Tcp;
 import com.slytechs.protocol.pack.core.constants.PacketDescriptorType;
 
@@ -64,7 +64,7 @@ public class Example1_CapturePacketsAndPrintHeaders {
 
 			/* Set a pretty print formatter to toString() method */
 			pcap.setPacketFormatter(new PacketFormat())
-				.setDescriptorType(PacketDescriptorType.TYPE1);
+				.setDescriptorType(PacketDescriptorType.TYPE2);
 
 			/* Number of packets to capture */
 			final int PACKET_COUNT = 10;
@@ -73,10 +73,12 @@ public class Example1_CapturePacketsAndPrintHeaders {
 			final Ethernet ethernet = new Ethernet();
 			final Ip4 ip4 = new Ip4();
 			final Tcp tcp = new Tcp();
-			final Ip4OptRouterAlert router = new Ip4OptRouterAlert();
+			final Ip4tRouterAlertOption router = new Ip4tRouterAlertOption();
 
 			/* Capture packets and access protocol headers */
 			pcap.dispatch(PACKET_COUNT, (String user, Packet packet) -> { // Pro API
+				
+				System.out.println(packet.descriptor());
 				
 				// If present, printout ethernet header
 				if (packet.hasHeader(ethernet))
@@ -87,7 +89,7 @@ public class Example1_CapturePacketsAndPrintHeaders {
 					System.out.println(ip4);
 
 				// If present, printout IPv4.router header extension
-				if (packet.hasHeader(ip4) && ip4.hasExtension(router))
+				if (packet.hasHeader(ip4) && ip4.hasOption(router))
 					System.out.println(router);
 
 				// If present, printout tcp header

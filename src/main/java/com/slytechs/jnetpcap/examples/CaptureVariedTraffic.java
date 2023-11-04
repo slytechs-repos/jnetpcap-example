@@ -22,7 +22,9 @@ import org.jnetpcap.PcapException;
 import com.slytechs.jnetpcap.pro.PcapPro;
 import com.slytechs.protocol.Packet;
 import com.slytechs.protocol.meta.PacketFormat;
+import com.slytechs.protocol.pack.core.constants.PacketDescriptorType;
 import com.slytechs.protocol.runtime.util.HexStrings;
+import com.slytechs.protocol.runtime.util.MemoryUnit;
 
 /**
  * @author Sly Technologies Inc
@@ -40,11 +42,16 @@ public class CaptureVariedTraffic {
 
 		try (var pcap = PcapPro.openOffline(PCAP_FILE)) {
 
-			pcap.setPacketFormatter(new PacketFormat());
+			pcap
+					.setDescriptorType(PacketDescriptorType.TYPE2)
+					.setPacketFormatter(new PacketFormat())
+					.setBufferSize(4, MemoryUnit.KILOBYTES)
+					.setNonBlock(true)
+					.activate();
 
 			int FRAME_NO = 400;
 			pcap.loop(FRAME_NO + 1, this::nextPacket, FRAME_NO);
-			
+
 			pcap.loop(1, this::nextPacket, FRAME_NO);
 		}
 
@@ -53,9 +60,9 @@ public class CaptureVariedTraffic {
 	private void nextPacket(int frameNo, Packet packet) {
 //		if (frameNo != packet.descriptor().frameNo)
 //			return;
-		
+
 		System.out.println(packet.descriptor());
-		
+
 		System.out.println(HexStrings.toHexDump(packet.descriptor().buffer()));
 
 		System.out.print(packet);

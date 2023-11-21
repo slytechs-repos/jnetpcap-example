@@ -28,6 +28,7 @@ import com.slytechs.protocol.Packet;
 import com.slytechs.protocol.meta.PacketFormat;
 import com.slytechs.protocol.pack.core.Ip4;
 import com.slytechs.protocol.pack.core.Tcp;
+import com.slytechs.protocol.pack.core.Udp;
 import com.slytechs.protocol.pack.core.constants.PacketDescriptorType;
 import com.slytechs.protocol.pack.web.Html;
 import com.slytechs.protocol.pack.web.Http;
@@ -38,24 +39,31 @@ import com.slytechs.protocol.runtime.util.MemoryUnit;
  */
 public class Example4_LiveCaptureAndPrint {
 
-	private static final Ip4 ip4 = new Ip4();
-	private static final Tcp tcp = new Tcp();
-	private static final Http http = new Http();
-	private static final Html html = new Html();
-
-	/** Example instance */
+	/** Boostrap example */
 	public static void main(String[] args) throws PcapException {
+		new Example4_LiveCaptureAndPrint().main();
+	}
+
+	private final Ip4 ip4 = new Ip4();
+	private final Tcp tcp = new Tcp();
+	private final Udp udp = new Udp();
+	private final Http http = new Http();
+	private final Html html = new Html();
+
+	
+	/** Example instance */
+	 void main() throws PcapException {
 
 		List<PcapIf> deviceList = Pcap.findAllDevs();
 		PcapIf device = deviceList.get(0);
 
-		System.out.println("Opening device '%s'".formatted(device.name()));
+		System.out.printf("Opening device '%s'%n", device.name());
 
 		try (PcapPro pcap = PcapPro.create(device)) { // Pro API
 
 			/* Pro API! Set packet descriptor type and pretty print formatter */
 			pcap
-					.setDescriptorType(PacketDescriptorType.TYPE2)
+					.setPacketType(PacketDescriptorType.TYPE2)
 					.setPacketFormatter(new PacketFormat())
 					.setBufferSize(4, MemoryUnit.KILOBYTES)
 					.setNonBlock(true)
@@ -64,12 +72,13 @@ public class Example4_LiveCaptureAndPrint {
 			/* Number of packets to capture */
 			final int PACKET_COUNT = 0;
 
-			pcap.loop(PACKET_COUNT, Example4_LiveCaptureAndPrint::nextPacket, "Example4"); // Pro API
+			pcap.loop(PACKET_COUNT, this::nextPacket, "Example4"); // Pro API
 		}
 	}
 
+
 	/* Out packet handler */
-	private static void nextPacket(String user, Packet packet) {
+	void nextPacket(String user, Packet packet) {
 
 		if (packet.hasHeader(ip4))
 			System.out.println(ip4);
@@ -77,8 +86,8 @@ public class Example4_LiveCaptureAndPrint {
 		if (packet.hasHeader(tcp))
 			System.out.println(tcp);
 
-		if (packet.hasHeader(http))
-			System.out.println(http);
+		if (packet.hasHeader(udp))
+			System.out.println(udp);
 
 		if (packet.hasHeader(http))
 			System.out.println(http);

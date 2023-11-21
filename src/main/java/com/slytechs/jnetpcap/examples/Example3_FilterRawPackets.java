@@ -72,13 +72,12 @@ public class Example3_FilterRawPackets {
 	}
 
 	/** Our packet handler */
-	void nextPacket(String user, MemorySegment hdr, MemorySegment packet) {
+	void nextPacket(String user, MemorySegment pcapDescriptor, MemorySegment packetMemory) {
 
-		PcapHeader header = new PcapHeader(hdr);
+		PcapHeader header = new PcapHeader(pcapDescriptor);
 
 		// MemorySegment contains packet data, accessible using new java's FF API
-		byte[] array = packet
-				.toArray(ValueLayout.JAVA_BYTE);
+		byte[] array = packetMemory.toArray(ValueLayout.JAVA_BYTE);
 
 		System.out.printf("%s: timestamp=%s, wirelen=%-4d caplen=%-4d %s%n",
 				user,

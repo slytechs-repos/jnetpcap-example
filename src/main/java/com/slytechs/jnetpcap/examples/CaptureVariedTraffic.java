@@ -43,7 +43,7 @@ public class CaptureVariedTraffic {
 		try (var pcap = PcapPro.openOffline(PCAP_FILE)) {
 
 			pcap
-					.setDescriptorType(PacketDescriptorType.TYPE2)
+					.setPacketType(PacketDescriptorType.TYPE2)
 					.setPacketFormatter(new PacketFormat())
 					.setBufferSize(4, MemoryUnit.KILOBYTES)
 					.setNonBlock(true)

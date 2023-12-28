@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.slytechs.jnetpcap.examples;
+package com.slytechs.jnet.jnetpcap.examples;
 
 import java.util.List;
 
@@ -23,15 +23,15 @@ import org.jnetpcap.Pcap;
 import org.jnetpcap.PcapException;
 import org.jnetpcap.PcapIf;
 
-import com.slytechs.jnetpcap.PcapPro;
-import com.slytechs.protocol.Packet;
-import com.slytechs.protocol.meta.PacketFormat;
-import com.slytechs.protocol.pack.core.Ip4;
-import com.slytechs.protocol.pack.core.Tcp;
-import com.slytechs.protocol.pack.core.constants.PacketDescriptorType;
-import com.slytechs.protocol.pack.web.Html;
-import com.slytechs.protocol.pack.web.Http;
-import com.slytechs.protocol.runtime.util.MemoryUnit;
+import com.slytechs.jnet.jnetpcap.PcapPro;
+import com.slytechs.jnet.jnetruntime.util.MemoryUnit;
+import com.slytechs.jnet.protocol.Packet;
+import com.slytechs.jnet.protocol.core.Ip4;
+import com.slytechs.jnet.protocol.core.Tcp;
+import com.slytechs.jnet.protocol.core.constants.PacketDescriptorType;
+import com.slytechs.jnet.protocol.meta.PacketFormat;
+import com.slytechs.jnet.protocol.web.Html;
+import com.slytechs.jnet.protocol.web.Http;
 
 /**
  * Pcap packet capture and reassembly example using jNetPcap.

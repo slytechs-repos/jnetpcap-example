@@ -15,16 +15,16 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.slytechs.jnetpcap.examples;
+package com.slytechs.jnet.jnetpcap.examples;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnetpcap.PcapPro;
-import com.slytechs.protocol.Packet;
-import com.slytechs.protocol.meta.PacketFormat;
-import com.slytechs.protocol.pack.core.constants.PacketDescriptorType;
-import com.slytechs.protocol.runtime.util.HexStrings;
-import com.slytechs.protocol.runtime.util.MemoryUnit;
+import com.slytechs.jnet.jnetpcap.PcapPro;
+import com.slytechs.jnet.jnetruntime.util.HexStrings;
+import com.slytechs.jnet.jnetruntime.util.MemoryUnit;
+import com.slytechs.jnet.protocol.Packet;
+import com.slytechs.jnet.protocol.core.constants.PacketDescriptorType;
+import com.slytechs.jnet.protocol.meta.PacketFormat;
 
 /**
  * @author Sly Technologies Inc

@@ -15,17 +15,17 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.slytechs.jnetpcap.examples.usecase;
+package com.slytechs.jnet.jnetpcap.examples.usecase;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnetpcap.PcapPro;
-import com.slytechs.protocol.pack.core.Icmp;
-import com.slytechs.protocol.pack.core.Icmp4;
-import com.slytechs.protocol.pack.core.Icmp4Echo;
-import com.slytechs.protocol.pack.core.Icmp6;
-import com.slytechs.protocol.pack.core.Icmp6Echo;
-import com.slytechs.protocol.runtime.util.Detail;
+import com.slytechs.jnet.jnetpcap.PcapPro;
+import com.slytechs.jnet.jnetruntime.util.Detail;
+import com.slytechs.jnet.protocol.core.Icmp;
+import com.slytechs.jnet.protocol.core.Icmp4;
+import com.slytechs.jnet.protocol.core.Icmp4Echo;
+import com.slytechs.jnet.protocol.core.Icmp6;
+import com.slytechs.jnet.protocol.core.Icmp6Echo;
 
 /**
  * Different use-cases of checking for various ICMP types efficiently.

@@ -15,19 +15,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.slytechs.jnetpcap.examples;
+package com.slytechs.jnet.jnetpcap.examples;
 
 import org.jnetpcap.Pcap;
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnetpcap.PcapPro;
-import com.slytechs.protocol.Packet;
-import com.slytechs.protocol.meta.PacketFormat;
-import com.slytechs.protocol.pack.core.Ethernet;
-import com.slytechs.protocol.pack.core.Ip4;
-import com.slytechs.protocol.pack.core.Ip4tRouterAlertOption;
-import com.slytechs.protocol.pack.core.Tcp;
-import com.slytechs.protocol.pack.core.constants.PacketDescriptorType;
+import com.slytechs.jnet.jnetpcap.PcapPro;
+import com.slytechs.jnet.protocol.Packet;
+import com.slytechs.jnet.protocol.core.Ethernet;
+import com.slytechs.jnet.protocol.core.Ip4;
+import com.slytechs.jnet.protocol.core.Ip4tRouterAlertOption;
+import com.slytechs.jnet.protocol.core.Tcp;
+import com.slytechs.jnet.protocol.core.constants.PacketDescriptorType;
+import com.slytechs.jnet.protocol.meta.PacketFormat;
 
 /**
  * Example showing how to capture offline packets and dispatch to a user packet

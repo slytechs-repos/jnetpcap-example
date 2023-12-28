@@ -15,20 +15,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.slytechs.jnetpcap.examples;
+package com.slytechs.jnet.jnetpcap.examples;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnetpcap.IpfReassembler;
-import com.slytechs.jnetpcap.PacketPlayer;
-import com.slytechs.jnetpcap.PcapPro;
-import com.slytechs.protocol.Packet;
-import com.slytechs.protocol.descriptor.IpfReassembly;
-import com.slytechs.protocol.meta.PacketFormat;
-import com.slytechs.protocol.pack.core.constants.IpfDescriptorType;
-import com.slytechs.protocol.runtime.util.CountUnit;
-import com.slytechs.protocol.runtime.util.Detail;
-import com.slytechs.protocol.runtime.util.MemoryUnit;
+import com.slytechs.jnet.jnetpcap.IpfReassembler;
+import com.slytechs.jnet.jnetpcap.PacketPlayer;
+import com.slytechs.jnet.jnetpcap.PcapPro;
+import com.slytechs.jnet.jnetruntime.util.CountUnit;
+import com.slytechs.jnet.jnetruntime.util.Detail;
+import com.slytechs.jnet.jnetruntime.util.MemoryUnit;
+import com.slytechs.jnet.protocol.Packet;
+import com.slytechs.jnet.protocol.core.constants.IpfDescriptorType;
+import com.slytechs.jnet.protocol.descriptor.IpfReassembly;
+import com.slytechs.jnet.protocol.meta.PacketFormat;
 
 /**
  * The example shows how to use PcapPro's IPv4 and IPv6 fragmentation reassembly
@@ -63,14 +63,14 @@ public class Example5_IpFragmentReassembly {
 //		try (PcapPro pcapPro = PcapPro.openOffline(LAN_FILE)) {
 		try (PcapPro pcapPro = PcapPro.openOffline(IP_FRAGMENTED_FILE)) {
 
-			pcapPro.install(PacketPlayer::new)
+			pcapPro.installPre(PacketPlayer::new)
 					.enableIf(pcapPro.getPcapType()::isOffline)
 					.preserveIfg(true) // Preserve inter-frame-gap
 					.syncTimestamp(true) // Sync timestamp to first frame, otherwise sync to current time
 					.play(1); // 1 = preserve original inter-frame-gap, otherwise adjust it accordingly
 
 			/* Enable IP fragmentation reassembly and use many IPF options */
-			pcapPro.install(IpfReassembler::new)
+			pcapPro.installPost(IpfReassembler::new)
 					.enable(true) // Enables both IPF reassembly and tracking
 					.enableReassembly(true) // Default, but this is how you disable
 					.enableTracking(true) // Default, but this is how you disable

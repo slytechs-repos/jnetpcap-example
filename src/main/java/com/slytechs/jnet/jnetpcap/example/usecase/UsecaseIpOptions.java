@@ -15,7 +15,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.slytechs.jnet.jnetpcap.examples.usecase;
+package com.slytechs.jnet.jnetpcap.example.usecase;
 
 import org.jnetpcap.PcapException;
 

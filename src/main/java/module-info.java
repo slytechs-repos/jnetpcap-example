@@ -11,7 +11,7 @@
 module com.slytechs.jnetpcap.example {
 
 	requires org.jnetpcap;
-	requires com.slytechs.jnetpcap.pro;
+	requires com.slytechs.jnetpcap;
 	requires com.slytechs.protocol;
 	requires com.slytechs.protocol.pack.web;
 

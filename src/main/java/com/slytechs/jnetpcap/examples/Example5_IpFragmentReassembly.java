@@ -19,9 +19,9 @@ package com.slytechs.jnetpcap.examples;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnetpcap.pro.IpfReassembler;
-import com.slytechs.jnetpcap.pro.PacketPlayer;
-import com.slytechs.jnetpcap.pro.PcapPro;
+import com.slytechs.jnetpcap.IpfReassembler;
+import com.slytechs.jnetpcap.PacketPlayer;
+import com.slytechs.jnetpcap.PcapPro;
 import com.slytechs.protocol.Packet;
 import com.slytechs.protocol.descriptor.IpfReassembly;
 import com.slytechs.protocol.meta.PacketFormat;

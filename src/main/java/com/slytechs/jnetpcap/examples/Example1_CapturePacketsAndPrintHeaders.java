@@ -20,7 +20,7 @@ package com.slytechs.jnetpcap.examples;
 import org.jnetpcap.Pcap;
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnetpcap.pro.PcapPro;
+import com.slytechs.jnetpcap.PcapPro;
 import com.slytechs.protocol.Packet;
 import com.slytechs.protocol.meta.PacketFormat;
 import com.slytechs.protocol.pack.core.Ethernet;

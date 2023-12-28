@@ -19,7 +19,7 @@ package com.slytechs.jnetpcap.examples;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnetpcap.pro.PcapPro;
+import com.slytechs.jnetpcap.PcapPro;
 import com.slytechs.protocol.pack.core.Icmp;
 import com.slytechs.protocol.pack.core.Icmp4;
 import com.slytechs.protocol.pack.core.Icmp4Echo;

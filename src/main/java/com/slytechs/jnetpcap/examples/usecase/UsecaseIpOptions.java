@@ -19,7 +19,7 @@ package com.slytechs.jnetpcap.examples.usecase;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnetpcap.pro.PcapPro;
+import com.slytechs.jnetpcap.PcapPro;
 import com.slytechs.protocol.pack.core.Ip4;
 import com.slytechs.protocol.pack.core.Ip6;
 import com.slytechs.protocol.runtime.util.Detail;

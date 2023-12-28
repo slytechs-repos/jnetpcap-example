@@ -23,7 +23,7 @@ import org.jnetpcap.Pcap;
 import org.jnetpcap.PcapException;
 import org.jnetpcap.PcapIf;
 
-import com.slytechs.jnetpcap.pro.PcapPro;
+import com.slytechs.jnetpcap.PcapPro;
 import com.slytechs.protocol.Packet;
 import com.slytechs.protocol.meta.PacketFormat;
 import com.slytechs.protocol.pack.core.Ip4;

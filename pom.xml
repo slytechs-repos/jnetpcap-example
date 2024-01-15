@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.slytechs.jnet.jnetpcap</groupId>
 		<artifactId>jnetpcap-sdk-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.10.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>jnetpcap-example</artifactId>
 	<name>jNetPcap Example</name>

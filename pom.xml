@@ -14,7 +14,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.slytechs.jnet.jnetpcap</groupId>
-			<artifactId>jnetpcap-pro-api</artifactId>
+			<artifactId>jnetpcap-api</artifactId>
 			<version>${project.version}</version> 
 		</dependency>
 		<dependency>

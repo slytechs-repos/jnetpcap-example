@@ -21,7 +21,6 @@ import org.jnetpcap.PcapException;
 
 import com.slytechs.jnet.jnetpcap.NetPcap;
 import com.slytechs.jnet.jnetruntime.util.HexStrings;
-import com.slytechs.jnet.jnetruntime.util.MemoryUnit;
 import com.slytechs.jnet.protocol.Packet;
 import com.slytechs.jnet.protocol.core.constants.PacketDescriptorType;
 import com.slytechs.jnet.protocol.meta.PacketFormat;
@@ -31,11 +30,11 @@ import com.slytechs.jnet.protocol.meta.PacketFormat;
  * @author repos@slytechs.com
  *
  */
-public class CaptureVariedTraffic {
-	private final String PCAP_FILE = "/opt/pcaps/markb-captures/varied-traffic-capture-lan.pcapng";
+public class Example7_CaptureVariedTraffic {
+	private final String PCAP_FILE = "pcaps/varied-traffic-capture-lan.pcapng";
 
 	public static void main(String[] args) throws PcapException {
-		new CaptureVariedTraffic().main();
+		new Example7_CaptureVariedTraffic().main();
 	}
 
 	void main() throws PcapException {
@@ -45,8 +44,8 @@ public class CaptureVariedTraffic {
 			pcap
 					.setDescriptorType(PacketDescriptorType.TYPE2)
 					.setPacketFormatter(new PacketFormat())
-					.setBufferSize(4, MemoryUnit.KILOBYTES)
-					.setNonBlock(true)
+//					.setBufferSize(4, MemoryUnit.KILOBYTES)
+//					.setNonBlock(true)
 					.activate();
 
 			int FRAME_NO = 400;

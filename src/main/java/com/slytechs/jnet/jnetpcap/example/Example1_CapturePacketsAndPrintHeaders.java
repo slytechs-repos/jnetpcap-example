@@ -49,11 +49,9 @@ public class Example1_CapturePacketsAndPrintHeaders {
 
 	/** Example instance */
 	void main() throws PcapException {
-		/* Pcap capture file to read */
-		final String PCAP_FILE = "pcaps/HTTP.cap";
 
-		/* Make sure we have a compatible Pcap runtime installed */
-		NetPcap.checkPcapVersion(NetPcap.VERSION);
+		/* Pcap capture file to read included with the example JAR file */
+		final String PCAP_FILE = "pcaps/HTTP.cap";
 
 		/*
 		 * Automatically close Pcap resource when done and checks the client and
@@ -63,7 +61,7 @@ public class Example1_CapturePacketsAndPrintHeaders {
 
 			/* Set a pretty print formatter to toString() method */
 			pcap.setPacketFormatter(new PacketFormat())
-				.setDescriptorType(PacketDescriptorType.TYPE2);
+					.setDescriptorType(PacketDescriptorType.TYPE2);
 
 			/* Number of packets to capture */
 			final int PACKET_COUNT = 10;
@@ -76,13 +74,11 @@ public class Example1_CapturePacketsAndPrintHeaders {
 
 			/* Capture packets and access protocol headers */
 			pcap.dispatch(PACKET_COUNT, (String user, Packet packet) -> { // Pro API
-				
-				System.out.println(packet.descriptor());
-				
+
 				// If present, printout ethernet header
 				if (packet.hasHeader(ethernet))
 					System.out.println(ethernet);
-				
+
 				// If present, printout ip4 header
 				if (packet.hasHeader(ip4))
 					System.out.println(ip4);
@@ -93,8 +89,6 @@ public class Example1_CapturePacketsAndPrintHeaders {
 
 				// If present, printout tcp header
 				if (packet.hasHeader(tcp)) {
-					System.out.printf("[%s] - ", tcp.flagsGetFormatted());
-					System.out.println(tcp.flagsAsString());
 					System.out.println(tcp);
 				}
 

@@ -21,7 +21,7 @@ import org.jnetpcap.PcapException;
 
 import com.slytechs.jnet.jnetpcap.IpfReassembler;
 import com.slytechs.jnet.jnetpcap.PacketPlayer;
-import com.slytechs.jnet.jnetpcap.PcapPro;
+import com.slytechs.jnet.jnetpcap.NetPcap;
 import com.slytechs.jnet.jnetruntime.util.CountUnit;
 import com.slytechs.jnet.jnetruntime.util.Detail;
 import com.slytechs.jnet.jnetruntime.util.MemoryUnit;
@@ -61,7 +61,7 @@ public class Example5_IpFragmentReassembly {
 
 //		try (PcapPro pcapPro = PcapPro.openOffline(IP6_FILE)) {
 //		try (PcapPro pcapPro = PcapPro.openOffline(LAN_FILE)) {
-		try (PcapPro pcapPro = PcapPro.openOffline(IP_FRAGMENTED_FILE)) {
+		try (NetPcap pcapPro = NetPcap.openOffline(IP_FRAGMENTED_FILE)) {
 
 			pcapPro.installPre(PacketPlayer::new)
 					.enableIf(pcapPro.getPcapType()::isOffline)
@@ -114,7 +114,7 @@ public class Example5_IpFragmentReassembly {
 	/** Main example */
 	void mainCutPasteReadyCode() throws PcapException {
 
-		try (PcapPro pcap = PcapPro.openOffline("IPv4-ipf.pcapng")) {
+		try (NetPcap pcap = NetPcap.openOffline("IPv4-ipf.pcapng")) {
 
 			/*
 			 * Enable IP Fragment (IPF) reassembly and activate offline capture

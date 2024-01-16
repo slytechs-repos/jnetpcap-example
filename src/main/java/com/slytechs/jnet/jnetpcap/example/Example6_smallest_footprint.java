@@ -19,7 +19,7 @@ package com.slytechs.jnet.jnetpcap.example;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnet.jnetpcap.PcapPro;
+import com.slytechs.jnet.jnetpcap.NetPcap;
 import com.slytechs.jnet.jnetruntime.util.Detail;
 import com.slytechs.jnet.protocol.core.Icmp;
 import com.slytechs.jnet.protocol.core.Icmp4;
@@ -46,7 +46,7 @@ public class Example6_smallest_footprint {
 	 */
 	void main() throws PcapException {
 
-		try (var pcap = PcapPro.openOffline("pcaps/IPv4-ipf.pcapng")) {
+		try (var pcap = NetPcap.openOffline("pcaps/IPv4-ipf.pcapng")) {
 //		try (var pcap = PcapPro.openOffline(LAN_FILE)) {
 //			pcap.enableIpf(true).activate();
 //			pcap.setFilter(pcap.compile("arp", true));

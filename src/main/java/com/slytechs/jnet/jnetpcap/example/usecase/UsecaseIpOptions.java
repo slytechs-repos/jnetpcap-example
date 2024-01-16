@@ -19,7 +19,7 @@ package com.slytechs.jnet.jnetpcap.example.usecase;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnet.jnetpcap.PcapPro;
+import com.slytechs.jnet.jnetpcap.NetPcap;
 import com.slytechs.jnet.jnetruntime.util.Detail;
 import com.slytechs.jnet.protocol.core.Ip4;
 import com.slytechs.jnet.protocol.core.Ip6;
@@ -39,7 +39,7 @@ public class UsecaseIpOptions {
 	}
 
 	void usecase1_listIpOptions() throws PcapException {
-		try (var pcap = PcapPro.openOffline(FILENAME)) {
+		try (var pcap = NetPcap.openOffline(FILENAME)) {
 
 			Ip4 ip4 = new Ip4();
 			Ip6 ip6 = new Ip6();

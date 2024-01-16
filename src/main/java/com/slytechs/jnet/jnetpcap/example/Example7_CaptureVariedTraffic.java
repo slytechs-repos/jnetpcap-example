@@ -19,7 +19,7 @@ package com.slytechs.jnet.jnetpcap.example;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnet.jnetpcap.PcapPro;
+import com.slytechs.jnet.jnetpcap.NetPcap;
 import com.slytechs.jnet.jnetruntime.util.HexStrings;
 import com.slytechs.jnet.jnetruntime.util.MemoryUnit;
 import com.slytechs.jnet.protocol.Packet;
@@ -40,7 +40,7 @@ public class CaptureVariedTraffic {
 
 	void main() throws PcapException {
 
-		try (var pcap = PcapPro.openOffline(PCAP_FILE)) {
+		try (var pcap = NetPcap.openOffline(PCAP_FILE)) {
 
 			pcap
 					.setDescriptorType(PacketDescriptorType.TYPE2)

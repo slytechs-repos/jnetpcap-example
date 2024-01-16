@@ -17,10 +17,9 @@
  */
 package com.slytechs.jnet.jnetpcap.example;
 
-import org.jnetpcap.Pcap;
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnet.jnetpcap.PcapPro;
+import com.slytechs.jnet.jnetpcap.NetPcap;
 import com.slytechs.jnet.protocol.Packet;
 import com.slytechs.jnet.protocol.core.Ethernet;
 import com.slytechs.jnet.protocol.core.Ip4;
@@ -54,13 +53,13 @@ public class Example1_CapturePacketsAndPrintHeaders {
 		final String PCAP_FILE = "pcaps/HTTP.cap";
 
 		/* Make sure we have a compatible Pcap runtime installed */
-		Pcap.checkPcapVersion(Pcap.VERSION);
+		NetPcap.checkPcapVersion(NetPcap.VERSION);
 
 		/*
 		 * Automatically close Pcap resource when done and checks the client and
 		 * installed runtime API versions to ensure they are compatible.
 		 */
-		try (PcapPro pcap = PcapPro.openOffline(PCAP_FILE)) { // Pro API
+		try (NetPcap pcap = NetPcap.openOffline(PCAP_FILE)) {
 
 			/* Set a pretty print formatter to toString() method */
 			pcap.setPacketFormatter(new PacketFormat())

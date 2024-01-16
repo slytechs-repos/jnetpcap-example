@@ -19,7 +19,7 @@ package com.slytechs.jnet.jnetpcap.example;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnet.jnetpcap.PcapPro;
+import com.slytechs.jnet.jnetpcap.NetPcap;
 import com.slytechs.jnet.jnetruntime.time.Timestamp;
 import com.slytechs.jnet.protocol.Packet;
 
@@ -45,7 +45,7 @@ public class Example2_PacketDescriptorTimestamp {
 		final String PCAP_FILE = "pcaps/HTTP.cap";
 
 		/* Automatically close Pcap resource when done */
-		try (PcapPro pcap = PcapPro.openOffline(PCAP_FILE)) { // Pro API
+		try (NetPcap pcap = NetPcap.openOffline(PCAP_FILE)) { // Pro API
 
 			/* Number of packets to capture */
 			final int PACKET_COUNT = 10;

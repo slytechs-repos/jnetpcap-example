@@ -19,7 +19,7 @@ package com.slytechs.jnet.jnetpcap.example.usecase;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnet.jnetpcap.PcapPro;
+import com.slytechs.jnet.jnetpcap.NetPcap;
 import com.slytechs.jnet.jnetruntime.util.Detail;
 import com.slytechs.jnet.protocol.core.Icmp;
 import com.slytechs.jnet.protocol.core.Icmp4;
@@ -46,7 +46,7 @@ public class UsecaseIcmpTypeLookup {
 	void usecase1_byNumericalVersionAndType() throws PcapException {
 		final Icmp icmp = new Icmp();
 
-		try (var pcap = PcapPro.openOffline(FILENAME)) {
+		try (var pcap = NetPcap.openOffline(FILENAME)) {
 
 			pcap.dispatch(packet -> {
 				if (!packet.hasHeader(icmp))
@@ -67,7 +67,7 @@ public class UsecaseIcmpTypeLookup {
 		final Icmp4 icmp4 = new Icmp4();
 		final Icmp6 icmp6 = new Icmp6();
 
-		try (var pcap = PcapPro.openOffline(FILENAME)) {
+		try (var pcap = NetPcap.openOffline(FILENAME)) {
 
 			pcap.dispatch(packet -> {
 				if (packet.hasHeader(icmp4))
@@ -90,7 +90,7 @@ public class UsecaseIcmpTypeLookup {
 		final Icmp4Echo.Request echoRequest4 = new Icmp4Echo.Request();
 		final Icmp6Echo echo6 = new Icmp6Echo();
 
-		try (var pcap = PcapPro.openOffline(FILENAME)) {
+		try (var pcap = NetPcap.openOffline(FILENAME)) {
 
 			pcap.dispatch(1, packet -> {
 

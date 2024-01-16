@@ -23,7 +23,7 @@ import org.jnetpcap.Pcap;
 import org.jnetpcap.PcapException;
 import org.jnetpcap.PcapIf;
 
-import com.slytechs.jnet.jnetpcap.PcapPro;
+import com.slytechs.jnet.jnetpcap.NetPcap;
 import com.slytechs.jnet.jnetruntime.util.MemoryUnit;
 import com.slytechs.jnet.protocol.Packet;
 import com.slytechs.jnet.protocol.core.Ip4;
@@ -51,7 +51,7 @@ public class Example4_LiveCaptureAndPrint {
 
 		System.out.println("Opening device '%s'".formatted(device.name()));
 
-		try (PcapPro pcap = PcapPro.create(device)) { // Pro API
+		try (NetPcap pcap = NetPcap.create(device)) { // Pro API
 
 			/* Pro API! Set packet descriptor type and pretty print formatter */
 			pcap

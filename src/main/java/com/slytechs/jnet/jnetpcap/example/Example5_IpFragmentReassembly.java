@@ -19,16 +19,7 @@ package com.slytechs.jnet.jnetpcap.example;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnet.jnetpcap.IpfReassembler;
-import com.slytechs.jnet.jnetpcap.PacketPlayer;
 import com.slytechs.jnet.jnetpcap.NetPcap;
-import com.slytechs.jnet.jnetruntime.util.CountUnit;
-import com.slytechs.jnet.jnetruntime.util.Detail;
-import com.slytechs.jnet.jnetruntime.util.MemoryUnit;
-import com.slytechs.jnet.protocol.Packet;
-import com.slytechs.jnet.protocol.core.constants.IpfDescriptorType;
-import com.slytechs.jnet.protocol.descriptor.IpfReassembly;
-import com.slytechs.jnet.protocol.meta.PacketFormat;
 
 /**
  * The example shows how to use PcapPro's IPv4 and IPv6 fragmentation reassembly
@@ -55,66 +46,9 @@ public class Example5_IpFragmentReassembly {
 	/** Main example */
 	void main() throws PcapException {
 		final String IP_FRAGMENTED_FILE = "pcaps/IPv4-ipf.pcapng";
-//		final String IP_FRAGMENTED_FILE = "pcaps/IPv4-ipf2.pcapng";
-		final String LAN_FILE = "pcaps/LAN-1.pcapng";
-		final String IP6_FILE = "pcaps/sr-header.pcap";
 
-//		try (PcapPro pcapPro = PcapPro.openOffline(IP6_FILE)) {
-//		try (PcapPro pcapPro = PcapPro.openOffline(LAN_FILE)) {
-		try (NetPcap pcapPro = NetPcap.openOffline(IP_FRAGMENTED_FILE)) {
 
-			pcapPro.installPre(PacketPlayer::new)
-					.enableIf(pcapPro.getPcapType()::isOffline)
-					.preserveIfg(true) // Preserve inter-frame-gap
-					.syncTimestamp(true) // Sync timestamp to first frame, otherwise sync to current time
-					.play(1); // 1 = preserve original inter-frame-gap, otherwise adjust it accordingly
-
-			/* Enable IP fragmentation reassembly and use many IPF options */
-			pcapPro.installPost(IpfReassembler::new)
-					.enable(true) // Enables both IPF reassembly and tracking
-					.enableReassembly(true) // Default, but this is how you disable
-					.enableTracking(true) // Default, but this is how you disable
-					.enablePassthrough(true) // Pass through original IP fragments
-					.enableAttachComplete(true) // Attach only complete dgrams to last IPF
-					.enableAttachIncomplete(true) // Attach incomplete dgrams as well to last IPF
-					.enableSend(true) // Enable sending new IP datagrams in packet stream
-					.enableSendComplete(true) // Send new reassembled dgrams
-					.enableSendIncomplete(true) // Send new incomplete dgrams
-					.setTimeoutOnLast(true) // Otherwise only timeout on duration
-					.setBufferSize(9, MemoryUnit.MEGABYTES) // Total reassembly buffer size
-					.setTableSize(1, CountUnit.KILO) // How many hash table entries
-					.setTableMaxFragmentCount(32) // Max number of IP fragments per hash entry
-					.setTimeoutMilli(1200) // Timeout in system or packet time for incomplete dgrams
-					.setMaxDgramSize(9, MemoryUnit.KILOBYTES) // Max reassembled IP dgram size
-					.usePacketTimesource(); // vs System timesource
-
-			pcapPro
-//					.uninstallAll()
-					.setPacketFormatter(new PacketFormat())
-					.activate();
-
-			pcapPro.dispatch((Packet packet) -> {
-				IpfReassembly reassemblyDesc = packet.descriptor(IpfDescriptorType.IPF_REASSEMBLY);
-
-//				System.out.println(packet.toString(Detail.HIGH));
-
-//				if (reassemblyDesc != null)
-//					System.out.println(reassemblyDesc.toString(Detail.HIGH));
-
-				if (packet.descriptor().frameNo() == 8)
-					System.out.println(packet.toString(Detail.HIGH)); // Full pretty formatting by default
-				
-//				System.out.println(packet.peekHeader(new Icmp4()));
-
-//				System.out.println(packet.descriptor().toString(Detail.HIGH));
-			});
-		}
-	}
-
-	/** Main example */
-	void mainCutPasteReadyCode() throws PcapException {
-
-		try (NetPcap pcap = NetPcap.openOffline("IPv4-ipf.pcapng")) {
+		try (NetPcap pcap = NetPcap.openOffline(IP_FRAGMENTED_FILE)) {
 
 			/*
 			 * Enable IP Fragment (IPF) reassembly and activate offline capture

@@ -25,12 +25,12 @@
 		<dependency>
 			<groupId>com.slytechs.jnet.protocol</groupId>
 			<artifactId>protocol-pack-api</artifactId>
-			<version>0.10.0</version>
+			<version>0.11.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.slytechs.jnet.protocol</groupId>
 			<artifactId>protocol-pack-web</artifactId>
-			<version>0.10.0</version>
+			<version>0.11.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project> 

@@ -15,39 +15,47 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.slytechs.jnetpcap.test.apps;
+package com.slytechs.jnet.jnetpcap.example.usecase;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnetpcap.pro.PcapPro;
-import com.slytechs.protocol.pack.Pack;
-import com.slytechs.protocol.pack.core.Ip4;
-import com.slytechs.protocol.pack.core.Ip4OptRouterAlert;
+import com.slytechs.jnet.jnetpcap.NetPcap;
+import com.slytechs.jnet.jnetruntime.util.Detail;
+import com.slytechs.jnet.protocol.core.Ip4;
+import com.slytechs.jnet.protocol.core.Ip6;
 
 /**
+ * Different use-cases of dealing with various IP related options (v4 and v6).
+ * 
  * @author Sly Technologies Inc
  * @author repos@slytechs.com
- *
  */
-public class Example5_ShortestForm {
-	private final String PCAP_FILE = "pcaps/varied-traffic-capture-lan.pcapng";
-	final Ip4 ip4 = new Ip4();
-	final Ip4OptRouterAlert router = new Ip4OptRouterAlert();
-	final StringBuilder out = new StringBuilder();
+public class UsecaseIpOptions {
+
+	static final String FILENAME = "pcaps/ipv6-udp-fragmented.pcap";
 
 	public static void main(String[] args) throws PcapException {
-		new Example5_ShortestForm().main();
+		new UsecaseIpOptions().usecase1_listIpOptions();
 	}
 
-	void main() throws PcapException {
-		
-		Pack.loadAllDetectedPacks();
-		Pack.listAllDeclaredPacks().forEach(System.out::println);
+	void usecase1_listIpOptions() throws PcapException {
+		try (var pcap = NetPcap.openOffline(FILENAME)) {
 
-		try (var pcap = PcapPro.openOffline(PCAP_FILE)) {
-//			pcap.loop(0, System.out::println);
+			Ip4 ip4 = new Ip4();
+			Ip6 ip6 = new Ip6();
+
+			pcap.dispatch(packet -> {
+				if (packet.hasHeader(ip4)) {
+
+				}
+
+				if (packet.hasHeader(ip6)) {
+				}
+				
+				System.out.println(packet.descriptor().toString(Detail.HIGH));
+			});
+
 		}
-
 	}
 
 }

@@ -15,13 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.slytechs.jnetpcap.test.apps;
+package com.slytechs.jnet.jnetpcap.example;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnetpcap.pro.PcapPro;
-import com.slytechs.protocol.Packet;
-import com.slytechs.protocol.runtime.time.Timestamp;
+import com.slytechs.jnet.jnetpcap.NetPcap;
+import com.slytechs.jnet.jnetruntime.time.Timestamp;
+import com.slytechs.jnet.protocol.Packet;
 
 /**
  * Example showing how to capture offline packets and dispatch to a user packet
@@ -45,7 +45,7 @@ public class Example2_PacketDescriptorTimestamp {
 		final String PCAP_FILE = "pcaps/HTTP.cap";
 
 		/* Automatically close Pcap resource when done */
-		try (PcapPro pcap = PcapPro.openOffline(PCAP_FILE)) { // Pro API
+		try (NetPcap pcap = NetPcap.openOffline(PCAP_FILE)) { // Pro API
 
 			/* Number of packets to capture */
 			final int PACKET_COUNT = 10;
@@ -58,7 +58,7 @@ public class Example2_PacketDescriptorTimestamp {
 						packet.captureLength(),
 						new Timestamp(packet.timestamp(), packet.timestampUnit()));
 
-			}, "Example1");
+			}, "Example2");
 		}
 	}
 }

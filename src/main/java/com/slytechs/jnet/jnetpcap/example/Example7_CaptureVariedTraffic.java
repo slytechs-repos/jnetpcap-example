@@ -15,36 +15,42 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.slytechs.jnetpcap.examples;
+package com.slytechs.jnet.jnetpcap.example;
 
 import org.jnetpcap.PcapException;
 
-import com.slytechs.jnetpcap.pro.PcapPro;
-import com.slytechs.protocol.Packet;
-import com.slytechs.protocol.meta.PacketFormat;
-import com.slytechs.protocol.runtime.util.HexStrings;
+import com.slytechs.jnet.jnetpcap.NetPcap;
+import com.slytechs.jnet.jnetruntime.util.HexStrings;
+import com.slytechs.jnet.protocol.Packet;
+import com.slytechs.jnet.protocol.core.constants.PacketDescriptorType;
+import com.slytechs.jnet.protocol.meta.PacketFormat;
 
 /**
  * @author Sly Technologies Inc
  * @author repos@slytechs.com
  *
  */
-public class CaptureVariedTraffic {
-	private final String PCAP_FILE = "/opt/pcaps/markb-captures/varied-traffic-capture-lan.pcapng";
+public class Example7_CaptureVariedTraffic {
+	private final String PCAP_FILE = "pcaps/varied-traffic-capture-lan.pcapng";
 
 	public static void main(String[] args) throws PcapException {
-		new CaptureVariedTraffic().main();
+		new Example7_CaptureVariedTraffic().main();
 	}
 
 	void main() throws PcapException {
 
-		try (var pcap = PcapPro.openOffline(PCAP_FILE)) {
+		try (var pcap = NetPcap.openOffline(PCAP_FILE)) {
 
-			pcap.setPacketFormatter(new PacketFormat());
+			pcap
+					.setDescriptorType(PacketDescriptorType.TYPE2)
+					.setPacketFormatter(new PacketFormat())
+//					.setBufferSize(4, MemoryUnit.KILOBYTES)
+//					.setNonBlock(true)
+					.activate();
 
 			int FRAME_NO = 400;
 			pcap.loop(FRAME_NO + 1, this::nextPacket, FRAME_NO);
-			
+
 			pcap.loop(1, this::nextPacket, FRAME_NO);
 		}
 
@@ -53,9 +59,9 @@ public class CaptureVariedTraffic {
 	private void nextPacket(int frameNo, Packet packet) {
 //		if (frameNo != packet.descriptor().frameNo)
 //			return;
-		
+
 		System.out.println(packet.descriptor());
-		
+
 		System.out.println(HexStrings.toHexDump(packet.descriptor().buffer()));
 
 		System.out.print(packet);

@@ -6,4 +6,4 @@
  * @author Sly Technologies
  * @author repos@slytechs.com
  */
-package com.slytechs.jnetpcap.examples;
+package com.slytechs.jnet.jnetpcap.example;

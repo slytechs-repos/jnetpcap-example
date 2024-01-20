@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.slytechs.jnet.jnetpcap</groupId>
 		<artifactId>jnetpcap-sdk-parent</artifactId>
-		<version>0.10.0-SNAPSHOT</version>
+		<version>0.10.0</version>
 	</parent>
 	<artifactId>jnetpcap-example</artifactId>
 	<name>jNetPcap Example</name>
@@ -15,17 +15,17 @@
 		<dependency>
 			<groupId>com.slytechs.jnet.jnetpcap</groupId>
 			<artifactId>jnetpcap-api</artifactId>
-			<version>${project.version}</version> 
+			<version>0.10.0-SNAPSHOT</version> 
 		</dependency>
 		<dependency>
 			<groupId>com.slytechs.jnet.protocol</groupId>
 			<artifactId>protocol-pack-api</artifactId>
-			<version>${protocol-sdk.version}</version>
+			<version>0.10.0</version>
 		</dependency>
 				<dependency>
 			<groupId>com.slytechs.jnet.protocol</groupId>
 			<artifactId>protocol-pack-web</artifactId>
-			<version>${protocol-sdk.version}</version>
+			<version>0.10.0</version>
 		</dependency>
 	</dependencies>
 </project>
